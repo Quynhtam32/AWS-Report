@@ -6,16 +6,13 @@ chapter: false
 pre: " <b> 6. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+Trong quá trình thực tập tại **Công ty TNHH Amazon Web Services Việt Nam** từ **08/06/2026** đến **24/07/2026**, em có cơ hội được học tập, thực hành và áp dụng những kiến thức đã học tại trường vào môi trường điện toán đám mây thực tế.
 
-Trong suốt thời gian thực tập tại **[Tên công ty/tổ chức]** từ **[ngày bắt đầu]** đến **[ngày kết thúc]**, tôi đã có cơ hội học hỏi, rèn luyện và áp dụng kiến thức đã được trang bị tại trường vào môi trường làm việc thực tế.  
-Tôi đã tham gia **[mô tả ngắn gọn dự án hoặc công việc chính]**, qua đó cải thiện kỹ năng **[liệt kê kỹ năng: lập trình, phân tích, viết báo cáo, giao tiếp…]**.  
+Em tham gia thực hiện dự án **"Hệ thống Dự báo và Cảnh báo Ô nhiễm Không khí Cục bộ sử dụng Machine Learning trên AWS"**, trong đó em phụ trách nghiên cứu và triển khai phần **Storage/Data**, bao gồm quản lý dữ liệu lưu trữ, thiết kế Data Lake và xây dựng quy trình xử lý dữ liệu. Thông qua dự án này, em đã nâng cao các kỹ năng về **dịch vụ AWS, phân tích dữ liệu, xử lý dữ liệu, thiết kế hệ thống, viết báo cáo kỹ thuật và làm việc nhóm**.
 
-Về tác phong, tôi luôn cố gắng hoàn thành tốt nhiệm vụ, tuân thủ nội quy, và tích cực trao đổi với đồng nghiệp để nâng cao hiệu quả công việc.
+Về tác phong, em luôn cố gắng hoàn thành tốt nhiệm vụ, tuân thủ nội quy, và tích cực trao đổi với đồng nghiệp để nâng cao hiệu quả công việc.
 
-Để phản ánh một cách khách quan quá trình thực tập, tôi xin tự đánh giá bản thân dựa trên các tiêu chí dưới đây:
+Để phản ánh một cách khách quan quá trình thực tập, em xin tự đánh giá bản thân dựa trên các tiêu chí dưới đây:
 
 
 | STT | Tiêu chí                            | Mô tả                                                                                            | Tốt | Khá | Trung bình |
@@ -24,7 +21,7 @@ Về tác phong, tôi luôn cố gắng hoàn thành tốt nhiệm vụ, tuân t
 | 2   | **Khả năng học hỏi**                | Tiếp thu kiến thức mới, học hỏi nhanh                                                            | ☐   | ✅   | ☐          |
 | 3   | **Chủ động**                        | Tự tìm hiểu, nhận nhiệm vụ mà không chờ chỉ dẫn                                                  | ✅   | ☐   | ☐          |
 | 4   | **Tinh thần trách nhiệm**           | Hoàn thành công việc đúng hạn, đảm bảo chất lượng                                                | ✅   | ☐   | ☐          |
-| 5   | **Kỷ luật**                         | Tuân thủ giờ giấc, nội quy, quy trình làm việc                                                   | ☐   | ☐   | ✅          |
+| 5   | **Kỷ luật** | Tuân thủ thời gian, quy định và quy trình làm việc | ☐ | ✅ | ☐ |
 | 6   | **Tính cầu tiến**                   | Sẵn sàng nhận feedback và cải thiện bản thân                                                     | ☐   | ✅   | ☐          |
 | 7   | **Giao tiếp**                       | Trình bày ý tưởng, báo cáo công việc rõ ràng                                                     | ☐   | ✅   | ☐          |
 | 8   | **Hợp tác nhóm**                    | Làm việc hiệu quả với đồng nghiệp, tham gia nhóm                                                 | ✅   | ☐   | ☐          |
@@ -33,8 +30,10 @@ Về tác phong, tôi luôn cố gắng hoàn thành tốt nhiệm vụ, tuân t
 | 11  | **Đóng góp vào dự án/tổ chức**      | Hiệu quả công việc, sáng kiến cải tiến, ghi nhận từ team                                         | ✅   | ☐   | ☐          |
 | 12  | **Tổng thể**                        | Đánh giá chung về toàn bộ quá trình thực tập                                                     | ✅   | ☐   | ☐          |
 
-### Cần cải thiện
+### Những điểm cần cải thiện:
 
-* Nâng cao tính kỹ luật, chấp hành nghiêm chỉnh nội quy của công ty hoặc bất kỳ trong một tổ chức nào
-* Cải thiện trong cách tư duy giải quyết vấn đề
-* Học cách giao tiếp tốt hơn trong giao tiếp hằng ngày và trong công việc, xử lý tình huống
+* Tiếp tục nâng cao kiến thức về AWS và tích lũy thêm kinh nghiệm thực hành với các dịch vụ cloud trong các dự án thực tế.
+
+* Cải thiện kỹ năng giải quyết vấn đề khi gặp các lỗi kỹ thuật trong quá trình triển khai hệ thống và tích hợp các dịch vụ AWS.
+
+* Nâng cao kỹ năng giao tiếp và trình bày, đặc biệt trong việc giải thích các giải pháp kỹ thuật, báo cáo tiến độ và trình bày nội dung trong quá trình làm việc nhóm.

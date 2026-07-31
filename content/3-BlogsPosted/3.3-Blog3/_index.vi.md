@@ -1,31 +1,50 @@
 ---
 title: "Blog 3"
 date: 2024-01-01
-weight: 1
+weight: 3
 chapter: false
 pre: " <b> 3.3. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
-# SESSION POLICIES TRONG AMAZON EKS POD IDENTITY
+# Một lỗi AWS IAM khiến mình hiểu rằng: "Role có quyền" chưa chắc dịch vụ đã dùng được
 
-Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+Bài viết chia sẻ một kinh nghiệm thực tế khi làm việc với AWS IAM, giải thích vì sao một IAM Role dù đã được cấp đầy đủ quyền vẫn có thể không hoạt động nếu cấu hình chưa chính xác. Đồng thời, bài viết làm rõ vai trò của **Trust Policy**, **Permission Policy** và **iam:PassRole** trong quá trình một dịch vụ AWS sử dụng IAM Role.
 
-Các điểm chính cần nắm:
+Các nội dung chính của bài viết:
 
-* Session policy là một IAM policy inline được chỉ định khi tạo hoặc cập nhật Pod Identity association.
-* Quyền hiệu quả = intersection (giao) giữa permissions của IAM role và session policy → session policy chỉ có thể thu hẹp, không thể mở rộng quyền.
-* Giúp tránh tình trạng over-permissioning khi reuse chung một IAM role cho nhiều workloads có nhu cầu khác nhau.
-* Hỗ trợ cả same-account và cross-account (qua IAM role chaining).
-* Giảm đáng kể số lượng IAM roles cần quản lý, tránh chạm giới hạn quota IAM trong cluster lớn.
-* Cấu hình dễ dàng qua AWS Management Console, AWS CLI hoặc AWS SDK khi tạo association giữa Kubernetes ServiceAccount và IAM role.
+* Phân biệt **Trust Policy** và **Permission Policy** trong IAM Role.
+* Hiểu cách Trust Policy xác định dịch vụ AWS nào được phép assume IAM Role.
+* Tìm hiểu cách Permission Policy quy định các hành động mà Role được phép thực hiện trên tài nguyên AWS.
+* Giải thích mục đích của quyền **iam:PassRole** khi cấu hình các dịch vụ AWS.
+* Phân tích rủi ro khi cấp quyền `iam:PassRole` quá rộng.
+* Checklist kiểm tra nhanh khi một AWS Service không thể sử dụng IAM Role:
+  * Kiểm tra Trust Policy.
+  * Kiểm tra Permission Policy.
+  * Kiểm tra Resource ARN.
+  * Xác minh quyền `iam:PassRole`.
+  * Kiểm tra Permission Boundary và Explicit Deny.
+* Giới thiệu các thực hành bảo mật IAM theo khuyến nghị của AWS như nguyên tắc **Least Privilege** và sử dụng **IAM Roles** thay cho Access Key dài hạn.
 
-Tính năng này đặc biệt hữu ích khi bạn có nhiều ứng dụng chạy trên cùng một IAM role nhưng cần giới hạn quyền khác nhau (ví dụ: một pod chỉ đọc S3 bucket cụ thể, pod khác chỉ gọi một số API nhất định).
+Bài viết nhấn mạnh rằng để một IAM Role hoạt động đúng, không chỉ cần cấp đủ quyền mà còn phải cấu hình chính xác **dịch vụ nào được phép sử dụng Role**, **ai được phép truyền Role** và **Role được phép thao tác trên tài nguyên nào**.
 
-...Hình ảnh...
+### Link bài viết
 
-...Link...
+https://www.facebook.com/groups/660548818043427/?multi_permalinks=2229747654456861&ref=share
 
-...Hướng dẫn...
+### Tài liệu tham khảo
+
+* AWS IAM Security Best Practices  
+  https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html
+
+* IAM Roles User Guide  
+  https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html
+
+* Grant Permission to Pass a Role to an AWS Service  
+  https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html
+
+* Policies and Permissions in IAM  
+  https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html
+
+* Troubleshoot IAM Roles  
+  https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_roles.html
+

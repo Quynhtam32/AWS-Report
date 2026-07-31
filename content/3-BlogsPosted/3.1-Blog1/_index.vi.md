@@ -1,31 +1,60 @@
 ---
 title: "Blog 1"
-date: 2024-01-01
+date: 2026-07-31
 weight: 1
 chapter: false
 pre: " <b> 3.1. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
-# SESSION POLICIES TRONG AMAZON EKS POD IDENTITY
+# Tăng Memory cho AWS Lambda có thể giúp giảm chi phí – Tại sao?
 
-Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+Khi cấu hình AWS Lambda, nhiều người thường cho rằng lựa chọn mức memory thấp nhất sẽ giúp tiết kiệm chi phí. Tuy nhiên, chi phí của AWS Lambda không chỉ phụ thuộc vào lượng memory được cấp mà còn phụ thuộc vào thời gian thực thi của function. Khi tăng memory, AWS đồng thời cấp thêm CPU và các tài nguyên xử lý khác, giúp function có thể hoàn thành công việc nhanh hơn.
 
-Các điểm chính cần nắm:
+Bài viết này phân tích mối quan hệ giữa **memory, CPU, thời gian thực thi và chi phí tính theo GB-second** của AWS Lambda. Đồng thời giải thích vì sao trong nhiều trường hợp, một function được cấu hình memory cao hơn lại có thể hoàn thành nhanh hơn và thậm chí có tổng chi phí thấp hơn so với cấu hình memory thấp.
 
-* Session policy là một IAM policy inline được chỉ định khi tạo hoặc cập nhật Pod Identity association.
-* Quyền hiệu quả = intersection (giao) giữa permissions của IAM role và session policy → session policy chỉ có thể thu hẹp, không thể mở rộng quyền.
-* Giúp tránh tình trạng over-permissioning khi reuse chung một IAM role cho nhiều workloads có nhu cầu khác nhau.
-* Hỗ trợ cả same-account và cross-account (qua IAM role chaining).
-* Giảm đáng kể số lượng IAM roles cần quản lý, tránh chạm giới hạn quota IAM trong cluster lớn.
-* Cấu hình dễ dàng qua AWS Management Console, AWS CLI hoặc AWS SDK khi tạo association giữa Kubernetes ServiceAccount và IAM role.
+## Nội dung chính
 
-Tính năng này đặc biệt hữu ích khi bạn có nhiều ứng dụng chạy trên cùng một IAM role nhưng cần giới hạn quyền khác nhau (ví dụ: một pod chỉ đọc S3 bucket cụ thể, pod khác chỉ gọi một số API nhất định).
+* Tìm hiểu cách AWS Lambda phân bổ CPU dựa trên mức memory được cấu hình.
+* Giải thích cơ chế tính chi phí của AWS Lambda theo mô hình GB-second.
+* Phân tích lý do vì sao tăng memory có thể giúp giảm thời gian thực thi và tối ưu chi phí.
+* Các loại workload hưởng lợi nhiều nhất khi tăng memory (CPU-bound, memory-bound và xử lý dữ liệu).
+* Những trường hợp tăng memory không mang lại hiệu quả rõ rệt.
+* Các nguyên tắc lựa chọn mức memory phù hợp cho từng loại ứng dụng.
+* Giới thiệu công cụ **AWS Lambda Power Tuning** để kiểm thử nhiều mức memory khác nhau.
+* Giới thiệu **AWS Compute Optimizer** giúp đưa ra khuyến nghị tối ưu memory dựa trên dữ liệu sử dụng thực tế.
+* Ví dụ thực tế về tối ưu Lambda Function xử lý dữ liệu AQI.
 
-...Hình ảnh...
+## Kết luận
 
-...Link...
+Qua bài viết, người đọc có thể thấy rằng mức memory tối ưu không phải lúc nào cũng là mức thấp nhất. Thay vào đó, cần kiểm thử với dữ liệu thực tế để lựa chọn cấu hình mang lại sự cân bằng tốt nhất giữa **hiệu năng** và **chi phí**. Việc tận dụng các công cụ như AWS Lambda Power Tuning và AWS Compute Optimizer cũng giúp quá trình tối ưu Lambda trở nên dễ dàng và chính xác hơn.
 
-...Hướng dẫn...
+## Link bài viết
+
+Facebook (AWS Study Group FCJ):  
+https://www.facebook.com/groups/660548818043427/?multi_permalinks=2228234364608190&ref=share
+
+## Tài liệu tham khảo
+
+* AWS Lambda – Cấu hình Memory cho Function  
+  https://docs.aws.amazon.com/lambda/latest/dg/configuration-memory.html
+
+* AWS Lambda – Các Best Practices  
+  https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+
+* AWS Lambda Pricing  
+  https://aws.amazon.com/lambda/pricing/
+
+* AWS Compute Optimizer – Khuyến nghị tối ưu cho AWS Lambda  
+  https://docs.aws.amazon.com/compute-optimizer/latest/ug/view-lambda-recommendations.html
+
+* AWS Lambda Power Tuning (GitHub)  
+  https://github.com/alexcasalboni/aws-lambda-power-tuning
+
+* Building Well-Architected Serverless Applications – Optimizing Application Costs  
+  https://aws.amazon.com/blogs/compute/building-well-architected-serverless-applications-optimizing-application-costs/
+
+* Troubleshoot AWS Lambda Functions  
+  https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-execution.html
+
+* AWS Lambda Runtime Environment  
+  https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html

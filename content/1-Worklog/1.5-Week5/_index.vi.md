@@ -1,59 +1,38 @@
 ---
 title: "Worklog Tuần 5"
-date: 2024-01-01
-weight: 1
+date: 2026-06-29
+weight: 5
 chapter: false
 pre: " <b> 1.5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
-
 
 ### Mục tiêu tuần 5:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Triển khai quy trình xử lý và làm sạch dữ liệu AQI được thu thập từ OpenAQ.
+* Tìm hiểu cách sử dụng AWS để thực hiện các bước tiền xử lý dữ liệu trước khi đưa vào Machine Learning.
+* Khám phá Amazon Kinesis Data Firehose để thu thập dữ liệu streaming và lưu trữ vào Amazon S3.
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Công việc đã hoàn thành trong tuần
 
+| Ngày | Công việc | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| --- | --- | --- | --- | --- |
+| 1 | Xem xét cấu trúc dữ liệu thô từ OpenAQ, phân tích định dạng dữ liệu và xác định các giá trị thiếu, bản ghi trùng lặp và các giá trị bất thường. | 29/06/2026 | 29/06/2026 | Bộ dữ liệu OpenAQ, Tài liệu dự án |
+| 2 | Tìm hiểu quy trình tiền xử lý dữ liệu trên AWS và nghiên cứu Amazon SageMaker Processing Job để thực hiện các tác vụ làm sạch dữ liệu. | 30/06/2026 | 30/06/2026 | Tài liệu Amazon SageMaker |
+| 3 | Xây dựng chương trình tiền xử lý dữ liệu AQI nhằm xử lý dữ liệu thiếu, phát hiện giá trị ngoại lai và chuẩn bị dữ liệu cho các bước xử lý tiếp theo. | 01/07/2026 | 01/07/2026 | Tài liệu dự án |
+| 4 | Tải bộ dữ liệu đã làm sạch lên vùng **processed** của Amazon S3 và kiểm tra tính nhất quán của dữ liệu theo schema AQI đã thiết kế. | 02/07/2026 | 02/07/2026 | Tài liệu Amazon S3, Tài liệu thiết kế hệ thống |
+| 5 | Nghiên cứu Amazon Kinesis Data Firehose, bao gồm quy trình thu nhận dữ liệu dạng streaming và tích hợp với Amazon S3 Data Lake. | 03/07/2026 | 03/07/2026 | Tài liệu Amazon Kinesis Data Firehose |
+| 6 | Tạo luồng Kinesis Data Firehose thử nghiệm, gửi dữ liệu streaming mẫu và xác nhận dữ liệu được ghi thành công vào Amazon S3. | 04/07/2026 | 04/07/2026 | Tài liệu Amazon Kinesis Data Firehose |
 
-### Kết quả đạt được tuần 5:
+### Kiến thức và kinh nghiệm đạt được:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Hiểu được tầm quan trọng của bước tiền xử lý dữ liệu trong quy trình Machine Learning.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Hiểu cách kết hợp các dịch vụ AWS để xây dựng Data Pipeline:
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+  * Amazon S3 dùng để lưu trữ dữ liệu.
+  * SageMaker Processing Job dùng để xử lý và biến đổi dữ liệu.
+  * Kinesis Data Firehose dùng để thu thập dữ liệu streaming.
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
+* Có thêm kinh nghiệm trong việc kiểm tra và duy trì tính nhất quán của dữ liệu giữa các thành phần trong hệ thống.
 
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Hiểu rõ hơn quá trình biến đổi dữ liệu raw thành dataset có chất lượng cao phục vụ cho việc phân tích và dự báo.

@@ -1,108 +1,598 @@
 ---
 title: "Bản đề xuất"
-date: 2024-01-01
+date: 2026-07-31
 weight: 2
 chapter: false
 pre: " <b> 2. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+# Local AQI Forecasting & Alert System
+## Hệ thống dự báo và cảnh báo ô nhiễm không khí cục bộ trên AWS
 
-Tại phần này, bạn cần tóm tắt các nội dung trong workshop mà bạn **dự tính** sẽ làm.
+### 1. Tóm tắt điều hành
 
-# IoT Weather Platform for Lab Research  
-## Giải pháp AWS Serverless hợp nhất cho giám sát thời tiết thời gian thực  
+Local AQI Forecasting & Alert System là hệ thống thu thập, lưu trữ, xử lý và dự báo chất lượng không khí theo từng trạm quan trắc. Dự án tập trung vào chỉ số PM2.5 trong giai đoạn MVP, đồng thời hướng tới khả năng mở rộng thêm PM10 và các yếu tố môi trường khác trong tương lai.
 
-### 1. Tóm tắt điều hành  
-IoT Weather Platform được thiết kế dành cho nhóm *ITea Lab* tại TP. Hồ Chí Minh nhằm nâng cao khả năng thu thập và phân tích dữ liệu thời tiết. Nền tảng hỗ trợ tối đa 5 trạm thời tiết, có khả năng mở rộng lên 10–15 trạm, sử dụng thiết bị biên Raspberry Pi kết hợp cảm biến ESP32 để truyền dữ liệu qua MQTT. Nền tảng tận dụng các dịch vụ AWS Serverless để cung cấp giám sát thời gian thực, phân tích dự đoán và tiết kiệm chi phí, với quyền truy cập giới hạn cho 5 thành viên phòng lab thông qua Amazon Cognito.  
+Trong phiên bản đầu tiên, nhóm sử dụng dữ liệu lịch sử từ OpenAQ để xây dựng chương trình mô phỏng nhiều trạm quan trắc. Dữ liệu telemetry được gửi qua MQTT đến AWS IoT Core, đi qua Amazon Data Firehose và được lưu trữ trên Amazon S3 theo mô hình data lake.
 
-### 2. Tuyên bố vấn đề  
-*Vấn đề hiện tại*  
-Các trạm thời tiết hiện tại yêu cầu thu thập dữ liệu thủ công, khó quản lý khi có nhiều trạm. Không có hệ thống tập trung cho dữ liệu hoặc phân tích thời gian thực, và các nền tảng bên thứ ba thường tốn kém và quá phức tạp.  
+Dữ liệu sau đó được làm sạch và chuẩn hóa bằng Amazon SageMaker Processing. Mô hình dự báo chuỗi thời gian được huấn luyện và triển khai trên Amazon SageMaker. Một backend FastAPI chạy trên Amazon EC2 cung cấp API truy vấn kết quả dự báo và kích hoạt Amazon SNS để gửi email cảnh báo khi giá trị PM2.5 dự báo vượt ngưỡng an toàn.
 
-*Giải pháp*  
-Nền tảng sử dụng AWS IoT Core để tiếp nhận dữ liệu MQTT, AWS Lambda và API Gateway để xử lý, Amazon S3 để lưu trữ (bao gồm data lake), và AWS Glue Crawlers cùng các tác vụ ETL để trích xuất, chuyển đổi, tải dữ liệu từ S3 data lake sang một S3 bucket khác để phân tích. AWS Amplify với Next.js cung cấp giao diện web, và Amazon Cognito đảm bảo quyền truy cập an toàn. Tương tự như Thingsboard và CoreIoT, người dùng có thể đăng ký thiết bị mới và quản lý kết nối, nhưng nền tảng này hoạt động ở quy mô nhỏ hơn và phục vụ mục đích sử dụng nội bộ. Các tính năng chính bao gồm bảng điều khiển thời gian thực, phân tích xu hướng và chi phí vận hành thấp.  
+Phiên bản MVP dự kiến hỗ trợ 3 trạm mô phỏng, dự báo PM2.5 trong 24 giờ tiếp theo và gửi cảnh báo qua email. Kiến trúc được thiết kế theo hướng có thể mở rộng thêm số lượng trạm, chỉ số môi trường và kênh thông báo ở các giai đoạn sau.
 
-*Lợi ích và hoàn vốn đầu tư (ROI)*  
-Giải pháp tạo nền tảng cơ bản để các thành viên phòng lab phát triển một nền tảng IoT lớn hơn, đồng thời cung cấp nguồn dữ liệu cho những người nghiên cứu AI phục vụ huấn luyện mô hình hoặc phân tích. Nền tảng giảm bớt báo cáo thủ công cho từng trạm thông qua hệ thống tập trung, đơn giản hóa quản lý và bảo trì, đồng thời cải thiện độ tin cậy dữ liệu. Chi phí hàng tháng ước tính 0,66 USD (theo AWS Pricing Calculator), tổng cộng 7,92 USD cho 12 tháng. Tất cả thiết bị IoT đã được trang bị từ hệ thống trạm thời tiết hiện tại, không phát sinh chi phí phát triển thêm. Thời gian hoàn vốn 6–12 tháng nhờ tiết kiệm đáng kể thời gian thao tác thủ công.  
+### 2. Tuyên bố vấn đề
 
-### 3. Kiến trúc giải pháp  
-Nền tảng áp dụng kiến trúc AWS Serverless để quản lý dữ liệu từ 5 trạm dựa trên Raspberry Pi, có thể mở rộng lên 15 trạm. Dữ liệu được tiếp nhận qua AWS IoT Core, lưu trữ trong S3 data lake và xử lý bởi AWS Glue Crawlers và ETL jobs để chuyển đổi và tải vào một S3 bucket khác cho mục đích phân tích. Lambda và API Gateway xử lý bổ sung, trong khi Amplify với Next.js cung cấp bảng điều khiển được bảo mật bởi Cognito.  
+#### Vấn đề hiện tại
 
-![IoT Weather Station Architecture](/images/2-Proposal/edge_architecture.jpeg)
+Chất lượng không khí tại các đô thị lớn có thể thay đổi rõ rệt theo khu vực và theo thời điểm. Một chỉ số AQI tổng quát cho toàn thành phố thường không phản ánh chính xác mức độ ô nhiễm tại từng quận, khu dân cư hoặc cơ sở giáo dục.
 
-![IoT Weather Platform Architecture](/images/2-Proposal/platform_architecture.jpeg)
+Những nhóm nhạy cảm như người cao tuổi, trẻ em, người mắc bệnh hô hấp hoặc người thường xuyên hoạt động ngoài trời thường không có đủ thông tin dự báo sớm để chủ động phòng tránh trước khi ô nhiễm tăng cao.
 
-*Dịch vụ AWS sử dụng*  
-- *AWS IoT Core*: Tiếp nhận dữ liệu MQTT từ 5 trạm, mở rộng lên 15.  
-- *AWS Lambda*: Xử lý dữ liệu và kích hoạt Glue jobs (2 hàm).  
-- *Amazon API Gateway*: Giao tiếp với ứng dụng web.  
-- *Amazon S3*: Lưu trữ dữ liệu thô (data lake) và dữ liệu đã xử lý (2 bucket).  
-- *AWS Glue*: Crawlers lập chỉ mục dữ liệu, ETL jobs chuyển đổi và tải dữ liệu.  
-- *AWS Amplify*: Lưu trữ giao diện web Next.js.  
-- *Amazon Cognito*: Quản lý quyền truy cập cho người dùng phòng lab.  
+Phần lớn các hệ thống hiện có chủ yếu cung cấp dữ liệu hiện tại hoặc dữ liệu lịch sử. Khả năng dự báo ngắn hạn và cảnh báo theo từng trạm quan trắc cụ thể vẫn còn hạn chế.
 
-*Thiết kế thành phần*  
-- *Thiết bị biên*: Raspberry Pi thu thập và lọc dữ liệu cảm biến, gửi tới IoT Core.  
-- *Tiếp nhận dữ liệu*: AWS IoT Core nhận tin nhắn MQTT từ thiết bị biên.  
-- *Lưu trữ dữ liệu*: Dữ liệu thô lưu trong S3 data lake; dữ liệu đã xử lý lưu ở một S3 bucket khác.  
-- *Xử lý dữ liệu*: AWS Glue Crawlers lập chỉ mục dữ liệu; ETL jobs chuyển đổi để phân tích.  
-- *Giao diện web*: AWS Amplify lưu trữ ứng dụng Next.js cho bảng điều khiển và phân tích thời gian thực.  
-- *Quản lý người dùng*: Amazon Cognito giới hạn 5 tài khoản hoạt động.  
+#### Giải pháp đề xuất
 
-### 4. Triển khai kỹ thuật  
-*Các giai đoạn triển khai*  
-Dự án gồm 2 phần — thiết lập trạm thời tiết biên và xây dựng nền tảng thời tiết — mỗi phần trải qua 4 giai đoạn:  
-1. *Nghiên cứu và vẽ kiến trúc*: Nghiên cứu Raspberry Pi với cảm biến ESP32 và thiết kế kiến trúc AWS Serverless (1 tháng trước kỳ thực tập).  
-2. *Tính toán chi phí và kiểm tra tính khả thi*: Sử dụng AWS Pricing Calculator để ước tính và điều chỉnh (Tháng 1).  
-3. *Điều chỉnh kiến trúc để tối ưu chi phí/giải pháp*: Tinh chỉnh (ví dụ tối ưu Lambda với Next.js) để đảm bảo hiệu quả (Tháng 2).  
-4. *Phát triển, kiểm thử, triển khai*: Lập trình Raspberry Pi, AWS services với CDK/SDK và ứng dụng Next.js, sau đó kiểm thử và đưa vào vận hành (Tháng 2–3).  
+Hệ thống xây dựng một pipeline dữ liệu hoàn chỉnh theo luồng:
 
-*Yêu cầu kỹ thuật*  
-- *Trạm thời tiết biên*: Cảm biến (nhiệt độ, độ ẩm, lượng mưa, tốc độ gió), vi điều khiển ESP32, Raspberry Pi làm thiết bị biên. Raspberry Pi chạy Raspbian, sử dụng Docker để lọc dữ liệu và gửi 1 MB/ngày/trạm qua MQTT qua Wi-Fi.  
-- *Nền tảng thời tiết*: Kiến thức thực tế về AWS Amplify (lưu trữ Next.js), Lambda (giảm thiểu do Next.js xử lý), AWS Glue (ETL), S3 (2 bucket), IoT Core (gateway và rules), và Cognito (5 người dùng). Sử dụng AWS CDK/SDK để lập trình (ví dụ IoT Core rules tới S3). Next.js giúp giảm tải Lambda cho ứng dụng web fullstack.  
+```text
+Telemetry Simulator
+-> AWS IoT Core
+-> IoT Rule
+-> Amazon Data Firehose
+-> Amazon S3 Raw
+-> SageMaker Processing
+-> Amazon S3 Processed
+-> SageMaker Training
+-> SageMaker Endpoint
+-> FastAPI on EC2
+-> Amazon SNS Email
+```
 
-### 5. Lộ trình & Mốc triển khai  
-- *Trước thực tập (Tháng 0)*: 1 tháng lên kế hoạch và đánh giá trạm cũ.  
-- *Thực tập (Tháng 1–3)*:  
-    - Tháng 1: Học AWS và nâng cấp phần cứng.  
-    - Tháng 2: Thiết kế và điều chỉnh kiến trúc.  
-    - Tháng 3: Triển khai, kiểm thử, đưa vào sử dụng.  
-- *Sau triển khai*: Nghiên cứu thêm trong vòng 1 năm.  
+Các chức năng chính của hệ thống gồm:
 
-### 6. Ước tính ngân sách  
-Có thể xem chi phí trên [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=621f38b12a1ef026842ba2ddfe46ff936ed4ab01)  
-Hoặc tải [tệp ước tính ngân sách](../attachments/budget_estimation.pdf).  
+* Mô phỏng dữ liệu từ nhiều trạm quan trắc.
+* Tiếp nhận dữ liệu thời gian thực bằng MQTT.
+* Lưu trữ dữ liệu thô và dữ liệu đã xử lý trên Amazon S3.
+* Làm sạch và chuẩn hóa dữ liệu phục vụ mô hình Machine Learning.
+* Dự báo PM2.5 trong 24 giờ tiếp theo cho từng trạm.
+* Cung cấp kết quả dự báo qua REST API.
+* Gửi email cảnh báo khi dự báo vượt ngưỡng an toàn.
+* Theo dõi quá trình ingestion, processing và alerting bằng Amazon CloudWatch.
 
-*Chi phí hạ tầng*  
-- AWS Lambda: 0,00 USD/tháng (1.000 request, 512 MB lưu trữ).  
-- S3 Standard: 0,15 USD/tháng (6 GB, 2.100 request, 1 GB quét).  
-- Truyền dữ liệu: 0,02 USD/tháng (1 GB vào, 1 GB ra).  
-- AWS Amplify: 0,35 USD/tháng (256 MB, request 500 ms).  
-- Amazon API Gateway: 0,01 USD/tháng (2.000 request).  
-- AWS Glue ETL Jobs: 0,02 USD/tháng (2 DPU).  
-- AWS Glue Crawlers: 0,07 USD/tháng (1 crawler).  
-- MQTT (IoT Core): 0,08 USD/tháng (5 thiết bị, 45.000 tin nhắn).  
+#### Tính ứng dụng thực tế
 
-*Tổng*: 0,7 USD/tháng, 8,40 USD/12 tháng  
-- *Phần cứng*: 265 USD một lần (Raspberry Pi 5 và cảm biến).  
+Các trường học, cơ sở y tế hoặc đơn vị quản lý địa phương có thể đăng ký nhận cảnh báo từ hệ thống. Khi hệ thống dự báo PM2.5 tại một khu vực sẽ vượt ngưỡng trong vài giờ tiếp theo, người dùng có thể chủ động:
 
-### 7. Đánh giá rủi ro  
-*Ma trận rủi ro*  
-- Mất mạng: Ảnh hưởng trung bình, xác suất trung bình.  
-- Hỏng cảm biến: Ảnh hưởng cao, xác suất thấp.  
-- Vượt ngân sách: Ảnh hưởng trung bình, xác suất thấp.  
+* Hạn chế hoạt động ngoài trời.
+* Điều chỉnh lịch học hoặc lịch sinh hoạt ngoài trời.
+* Đóng cửa sổ hoặc bật thiết bị lọc không khí.
+* Chuẩn bị biện pháp bảo vệ cho người thuộc nhóm nhạy cảm.
+* Theo dõi sớm nguy cơ ô nhiễm thay vì chỉ phản ứng khi ô nhiễm đã xảy ra.
 
-*Chiến lược giảm thiểu*  
-- Mạng: Lưu trữ cục bộ trên Raspberry Pi với Docker.  
-- Cảm biến: Kiểm tra định kỳ, dự phòng linh kiện.  
-- Chi phí: Cảnh báo ngân sách AWS, tối ưu dịch vụ.  
+#### Lợi ích dự kiến
 
-*Kế hoạch dự phòng*  
-- Quay lại thu thập thủ công nếu AWS gặp sự cố.  
-- Sử dụng CloudFormation để khôi phục cấu hình liên quan đến chi phí.  
+* Cung cấp cảnh báo sớm thay vì chỉ hiển thị dữ liệu hiện tại.
+* Tạo pipeline dữ liệu tập trung, có thể kiểm chứng và tái sử dụng.
+* Giảm thao tác thu thập và tổng hợp dữ liệu thủ công.
+* Tạo nền tảng cho các nghiên cứu tiếp theo về dự báo chất lượng không khí.
+* Có thể mở rộng sang PM10, nhiệt độ, độ ẩm, gió và các chỉ số môi trường khác.
+* Có thể tích hợp thêm dashboard, web app hoặc push notification trong các phiên bản sau.
 
-### 8. Kết quả kỳ vọng  
-*Cải tiến kỹ thuật*: Dữ liệu và phân tích thời gian thực thay thế quy trình thủ công. Có thể mở rộng tới 10–15 trạm.  
-*Giá trị dài hạn*: Nền tảng dữ liệu 1 năm cho nghiên cứu AI, có thể tái sử dụng cho các dự án tương lai.
+### 3. Kiến trúc giải pháp
+
+Hệ thống được thiết kế theo hướng event-driven kết hợp data pipeline. Mỗi thành phần đảm nhiệm một trách nhiệm riêng, giúp việc triển khai, kiểm thử và mở rộng rõ ràng hơn.
+
+#### Kiến trúc tổng thể của hệ thống
+
+Giải pháp được đề xuất bao gồm hai lớp chính: lớp biên (Edge Layer), chịu trách nhiệm thu thập và truyền dữ liệu cảm biến, và nền tảng đám mây AWS, đảm nhiệm việc xử lý, lưu trữ, dự báo và gửi cảnh báo chất lượng không khí.
+
+##### Kiến trúc Edge
+
+<p align="center">
+    <img src="/images/2-Proposal/edge_architecture.jpeg" width="900">
+</p>
+
+<p align="center">
+<i>Hình 2.1. Kiến trúc Edge.</i>
+</p>
+
+Tại lớp Edge, các thiết bị IoT thu thập dữ liệu môi trường và gửi dữ liệu telemetry thông qua giao thức MQTT. Một thiết bị Raspberry Pi lưu trữ MQTT Broker, InfluxDB, Edge Dashboard và các thành phần xử lý dữ liệu cục bộ. Tailscale VPN được sử dụng để cung cấp kết nối từ xa an toàn, hỗ trợ việc giám sát và quản lý hệ thống.
+
+---
+
+##### Kiến trúc nền tảng AWS Cloud
+
+<p align="center">
+    <img src="/images/2-Proposal/platform_architecture.jpeg" width="1000">
+</p>
+
+<p align="center">
+<i>Hình 2.2. Kiến trúc nền tảng AWS Cloud.</i>
+</p>
+
+Nền tảng đám mây được xây dựng dựa trên các dịch vụ của AWS. AWS IoT Core tiếp nhận dữ liệu telemetry từ các thiết bị Edge, trong khi Amazon S3 lưu trữ dữ liệu thô (Raw) và dữ liệu đã xử lý (Processed). AWS Glue thực hiện quá trình ETL, AWS Lambda triển khai các chức năng xử lý phía máy chủ, Amazon API Gateway cung cấp các REST API, Amazon Cognito đảm nhiệm xác thực người dùng và AWS Amplify lưu trữ ứng dụng web. Các dịch vụ này phối hợp với nhau để tạo thành một nền tảng có khả năng mở rộng cho việc thu thập dữ liệu, xử lý, lưu trữ, dự báo và cung cấp thông tin đến người dùng.
+
+---
+
+#### Luồng xử lý đầu cuối (End-to-End Processing Flow)
+
+#### Luồng xử lý tổng thể
+
+1. Python Simulator đọc dữ liệu lịch sử từ OpenAQ và mô phỏng dữ liệu của nhiều trạm.
+2. Simulator gửi telemetry message đến AWS IoT Core qua MQTT.
+3. AWS IoT Rule tiếp nhận message theo topic đã cấu hình.
+4. IoT Rule chuyển message sang Amazon Data Firehose.
+5. Firehose gom record và ghi dữ liệu xuống Amazon S3 Raw.
+6. SageMaker Processing đọc dữ liệu raw, kiểm tra schema, làm sạch và tạo dữ liệu processed.
+7. SageMaker Training sử dụng dữ liệu processed để huấn luyện mô hình dự báo chuỗi thời gian.
+8. Mô hình được triển khai thành SageMaker Endpoint.
+9. FastAPI trên Amazon EC2 gọi endpoint để lấy kết quả dự báo.
+10. Khi giá trị dự báo vượt ngưỡng an toàn, backend gửi thông báo qua Amazon SNS.
+11. Amazon CloudWatch thu thập metrics và logs để phục vụ giám sát và xử lý lỗi.
+
+#### Dịch vụ AWS sử dụng
+
+* **AWS IoT Core**: Tiếp nhận dữ liệu telemetry từ các trạm mô phỏng qua MQTT.
+* **AWS IoT Rules Engine**: Lọc và định tuyến message từ IoT Core sang Firehose.
+* **Amazon Data Firehose**: Gom cụm dữ liệu và chuyển dữ liệu liên tục vào Amazon S3.
+* **Amazon S3 Raw**: Lưu dữ liệu telemetry nguyên bản.
+* **Amazon S3 Processed**: Lưu dữ liệu đã làm sạch và chuẩn hóa.
+* **Amazon SageMaker Processing**: Làm sạch, kiểm tra và chuyển đổi dữ liệu.
+* **Amazon SageMaker Training**: Huấn luyện mô hình dự báo chuỗi thời gian.
+* **Amazon SageMaker Endpoint**: Cung cấp khả năng suy luận mô hình qua API.
+* **Amazon EC2**: Chạy backend FastAPI và logic cảnh báo.
+* **Amazon SNS**: Gửi email cảnh báo tới người dùng đăng ký.
+* **Amazon CloudWatch**: Theo dõi metrics, logs và lỗi vận hành.
+* **AWS IAM**: Quản lý quyền truy cập giữa người dùng và các dịch vụ AWS.
+* **AWS Budgets**: Theo dõi chi phí và gửi cảnh báo khi mức sử dụng vượt ngưỡng.
+
+#### Thiết kế thành phần
+
+##### Nguồn dữ liệu và Simulator
+
+Nguồn dữ liệu chính là OpenAQ Dataset. Dữ liệu lịch sử được làm sạch và đưa vào Python Simulator để mô phỏng hoạt động của các trạm quan trắc.
+
+Phiên bản MVP sử dụng 3 trạm mô phỏng. Mỗi message dự kiến chứa các trường chính:
+
+```json
+{
+  "schema_version": "1.0",
+  "station_id": "station-01",
+  "ts_utc": "2026-07-31T00:00:00Z",
+  "pm25_ugm3": 28.5,
+  "pm10_ugm3": 42.1,
+  "temperature_c": 31.2,
+  "humidity_pct": 72.5,
+  "source": "simulator"
+}
+```
+
+Các trường mở rộng có thể bao gồm:
+
+```text
+wind_speed_mps
+wind_dir_deg
+latitude
+longitude
+```
+
+##### Tiếp nhận và định tuyến dữ liệu
+
+Simulator kết nối AWS IoT Core bằng certificate và publish message lên MQTT topic của môi trường phát triển.
+
+Topic convention dự kiến:
+
+```text
+telemetry/aqi/dev/{station_id}
+```
+
+IoT Rule sử dụng câu lệnh:
+
+```sql
+SELECT * FROM 'telemetry/aqi/dev/+'
+```
+
+Sau khi nhận message, IoT Rule sử dụng IAM service role để gửi record sang Firehose.
+
+##### Lưu trữ dữ liệu
+
+Hệ thống sử dụng hai S3 bucket chính:
+
+```text
+local-aqi-dev-s3-raw
+local-aqi-dev-s3-processed
+```
+
+Dữ liệu raw được lưu theo prefix:
+
+```text
+raw/telemetry/
+```
+
+Dữ liệu lỗi có thể được lưu tại:
+
+```text
+raw/errors/
+```
+
+Dữ liệu đã xử lý được lưu trong bucket processed theo cấu trúc thời gian hoặc station để thuận tiện cho huấn luyện và truy vấn.
+
+##### Machine Learning
+
+SageMaker Processing thực hiện:
+
+* Đọc dữ liệu từ S3 Raw.
+* Kiểm tra schema.
+* Xử lý giá trị thiếu.
+* Loại bỏ hoặc đánh dấu dữ liệu bất thường.
+* Chuẩn hóa timestamp.
+* Sắp xếp dữ liệu theo station và thời gian.
+* Tạo dữ liệu train, validation và test.
+* Ghi dữ liệu đã xử lý xuống S3 Processed.
+
+Mô hình dự kiến sử dụng DeepAR hoặc một mô hình dự báo chuỗi thời gian phù hợp khác trên SageMaker.
+
+Đầu ra chính của mô hình gồm:
+
+* Dự báo PM2.5 trong 24 giờ tiếp theo.
+* Giá trị dự báo theo từng timestamp.
+* Khoảng bất định hoặc quantile dự báo nếu mô hình hỗ trợ.
+* Trạng thái cảnh báo theo ngưỡng đã cấu hình.
+
+##### Backend và cảnh báo
+
+FastAPI được triển khai trên Amazon EC2 và cung cấp các endpoint dự kiến:
+
+```text
+GET /health
+GET /stations
+GET /forecast/{station_id}
+POST /subscriptions
+```
+
+Backend gọi SageMaker Endpoint hoặc đọc kết quả forecast đã lưu. Khi giá trị dự báo vượt ngưỡng, backend kích hoạt Amazon SNS để gửi email cho người dùng đã đăng ký.
+
+### 4. Triển khai kỹ thuật
+
+#### Các giai đoạn triển khai
+
+Dự án được triển khai trong 4 tuần với các giai đoạn chính sau:
+
+##### Giai đoạn 1 - Thiết kế và chuẩn hóa
+
+* Chốt phạm vi MVP.
+* Chọn PM2.5 làm chỉ số dự báo chính.
+* Chọn thời gian dự báo 24 giờ.
+* Chọn 3 trạm cho phiên bản đầu tiên.
+* Chuẩn hóa telemetry schema.
+* Chốt naming convention và tagging convention.
+* Thiết kế kiến trúc AWS.
+* Tạo IAM users, IAM roles và budget alerts.
+
+##### Giai đoạn 2 - Data Ingestion
+
+* Chuẩn bị dữ liệu OpenAQ.
+* Xây dựng Python Simulator.
+* Tạo certificate và IoT Policy.
+* Cấu hình MQTT topic.
+* Tạo IoT Rule.
+* Kết nối IoT Core với Firehose.
+* Cấu hình Firehose ghi dữ liệu vào S3 Raw.
+* Kiểm tra nhiều message và nhiều station.
+* Thu thập evidence cho toàn bộ ingestion pipeline.
+
+Milestone của giai đoạn:
+
+```text
+Simulator -> IoT Core -> Firehose -> S3 Raw
+```
+
+Dữ liệu JSON thực tế phải xuất hiện trong bucket raw.
+
+##### Giai đoạn 3 - Data Processing và Machine Learning
+
+* Xây dựng processing script.
+* Làm sạch và chuẩn hóa dữ liệu.
+* Tạo dữ liệu train, validation và test.
+* Huấn luyện mô hình dự báo.
+* Đánh giá kết quả bằng các chỉ số như MAE và RMSE.
+* So sánh với baseline đơn giản.
+* Lưu model artifact.
+* Triển khai SageMaker Endpoint.
+* Kiểm thử inference theo từng station.
+
+##### Giai đoạn 4 - API, cảnh báo và kiểm thử end-to-end
+
+* Xây dựng FastAPI backend.
+* Triển khai backend trên EC2.
+* Kết nối backend với SageMaker Endpoint.
+* Tạo SNS topic và email subscription.
+* Xây dựng logic so sánh forecast với ngưỡng cảnh báo.
+* Kiểm thử API.
+* Kiểm thử gửi email.
+* Kiểm thử toàn bộ hệ thống từ simulator đến người nhận cảnh báo.
+* Hoàn thiện tài liệu và evidence triển khai.
+
+#### Yêu cầu kỹ thuật
+
+##### Môi trường phát triển
+
+* Python 3.10 hoặc phiên bản tương thích.
+* Git và GitHub.
+* AWS CLI.
+* Visual Studio Code.
+* Python virtual environment.
+* Paho MQTT.
+* Pandas.
+* Boto3.
+* FastAPI.
+* Uvicorn.
+* SageMaker Python SDK.
+
+Ví dụ dependency cơ bản:
+
+```bash
+pip install paho-mqtt pandas boto3 fastapi uvicorn sagemaker
+```
+
+##### Cấu hình bảo mật
+
+* Không sử dụng tài khoản root cho công việc hằng ngày.
+* Mỗi thành viên sử dụng IAM user riêng.
+* Bật MFA cho tài khoản có quyền quản trị.
+* Áp dụng nguyên tắc least privilege.
+* Private key và certificate không được commit lên Git.
+* Thư mục `certs/` và file `.env` phải nằm trong `.gitignore`.
+* IAM role của IoT Core chỉ được gửi dữ liệu vào Firehose stream được chỉ định.
+* IAM role của Firehose chỉ được ghi vào S3 bucket và prefix cần thiết.
+* SageMaker execution role chỉ được truy cập các bucket phục vụ processing và training.
+
+##### Naming convention
+
+Tên tài nguyên sử dụng cấu trúc:
+
+```text
+local-aqi-{environment}-{service-or-purpose}
+```
+
+Ví dụ:
+
+```text
+local-aqi-dev-s3-raw
+local-aqi-dev-s3-processed
+local-aqi-dev-firehose-telemetry
+local-aqi-dev-iot-to-firehose-role
+local-aqi-dev-firehose-to-s3-role
+local-aqi-dev-sagemaker-execution-role
+```
+
+##### Tagging convention
+
+Các tài nguyên hỗ trợ tagging sử dụng các tag:
+
+```text
+Project     = local-aqi-forecasting
+Environment = dev
+Owner       = team-member-name
+Module      = ingestion | data | ml | backend | devops
+```
+
+### 5. Lộ trình và mốc triển khai
+
+Dự án dự kiến triển khai trong khoảng 4 tuần.
+
+#### Tuần 1 - Kiến trúc và Ingestion
+
+* Chốt kiến trúc phiên bản 1.
+* Chốt schema telemetry.
+* Tạo S3 Raw và S3 Processed.
+* Xây dựng simulator.
+* Cấu hình AWS IoT Core.
+* Cấu hình Firehose.
+* Hoàn thành IoT Rule -> Firehose -> S3 Raw.
+
+**Milestone 1**
+
+```text
+Dữ liệu thực từ simulator xuất hiện trong S3 Raw.
+```
+
+#### Tuần 2 - Data Processing
+
+* Kiểm tra chất lượng dữ liệu.
+* Xây dựng processing pipeline.
+* Chuẩn hóa dữ liệu theo từng station.
+* Tạo tập train, validation và test.
+* Lưu dữ liệu sạch vào S3 Processed.
+
+**Milestone 2**
+
+```text
+Dữ liệu processed có thể sử dụng để huấn luyện mô hình.
+```
+
+#### Tuần 3 - Machine Learning
+
+* Xây dựng baseline.
+* Huấn luyện mô hình DeepAR hoặc mô hình phù hợp khác.
+* Đánh giá MAE và RMSE.
+* Kiểm tra dự báo theo từng station.
+* Triển khai SageMaker Endpoint.
+
+**Milestone 3**
+
+```text
+SageMaker Endpoint trả về dự báo PM2.5 trong 24 giờ.
+```
+
+#### Tuần 4 - Backend và cảnh báo
+
+* Xây dựng FastAPI.
+* Triển khai trên EC2.
+* Kết nối API với SageMaker Endpoint.
+* Cấu hình SNS.
+* Kiểm thử email cảnh báo.
+* Kiểm thử end-to-end.
+* Hoàn thiện tài liệu, hình ảnh và báo cáo.
+
+**Milestone 4**
+
+```text
+Người dùng nhận email khi dự báo PM2.5 vượt ngưỡng.
+```
+
+#### Hướng phát triển sau MVP
+
+* Mở rộng dự báo từ 24 giờ lên 48 giờ.
+* Tăng số lượng trạm.
+* Bổ sung PM10, nhiệt độ, độ ẩm và gió.
+* Xây dựng dashboard trực quan.
+* Thêm push notification hoặc SMS.
+* Tự động hóa retraining.
+* Theo dõi model drift và data drift.
+* Tích hợp nguồn dữ liệu quan trắc thực tế.
+
+### 6. Ước tính ngân sách
+
+Chi phí chính của dự án đến từ:
+
+* Amazon SageMaker Processing.
+* SageMaker Training.
+* SageMaker Endpoint.
+* Amazon EC2.
+* Amazon S3.
+* Amazon Data Firehose.
+* AWS IoT Core.
+* Amazon SNS.
+* Amazon CloudWatch.
+
+Do khối lượng dữ liệu của MVP tương đối nhỏ, chi phí của IoT Core, Firehose, S3 và SNS dự kiến không lớn. Thành phần cần kiểm soát chặt nhất là SageMaker Endpoint, SageMaker Processing, Training Jobs và EC2 vì các tài nguyên này có thể tiếp tục phát sinh chi phí nếu không được dừng đúng lúc.
+
+Chi phí chính xác cần được tính lại bằng AWS Pricing Calculator dựa trên:
+
+* Region `ap-southeast-1`.
+* Số lượng message mỗi tháng.
+* Kích thước mỗi telemetry record.
+* Dung lượng lưu trữ S3.
+* Số lần chạy Processing Job.
+* Thời gian Training Job.
+* Loại instance SageMaker.
+* Thời gian hoạt động của SageMaker Endpoint.
+* Loại EC2 instance và thời gian chạy.
+* Số lượng email gửi qua SNS.
+
+#### Nguyên tắc kiểm soát ngân sách
+
+Nhóm sử dụng ngân sách AWS tối đa 100 USD cho giai đoạn MVP và áp dụng các ngưỡng kiểm soát:
+
+* **10 USD hoặc 5% ngân sách**: Kiểm tra dịch vụ đang phát sinh chi phí.
+* **25 USD hoặc 15% ngân sách**: Đánh giá lại tài nguyên và thời gian chạy.
+* **50 USD hoặc 30% ngân sách**: Tạm dừng các tài nguyên không thiết yếu.
+* **100 USD hoặc 50% credit khả dụng**: Đóng băng phạm vi, chỉ giữ các thành phần MVP.
+
+#### Biện pháp tối ưu chi phí
+
+* Chạy SageMaker Processing và Training theo job, không duy trì liên tục.
+* Xóa hoặc dừng SageMaker Endpoint sau khi kiểm thử.
+* Dừng EC2 khi không sử dụng.
+* Sử dụng instance nhỏ cho backend demo.
+* Giới hạn CloudWatch log retention.
+* Xóa dữ liệu test không cần thiết.
+* Sử dụng S3 lifecycle policy khi dữ liệu tăng.
+* Theo dõi AWS Cost Explorer và AWS Budgets hằng ngày.
+* Gắn tag đầy đủ để xác định chi phí theo module và owner.
+
+> Chi phí cụ thể sẽ được cập nhật sau khi nhóm hoàn thành bản AWS Pricing Calculator theo cấu hình triển khai thực tế.
+
+### 7. Đánh giá rủi ro
+
+#### Ma trận rủi ro
+
+| Rủi ro | Ảnh hưởng | Khả năng xảy ra | Biện pháp xử lý |
+| --- | ---: | ---: | --- |
+| Simulator không kết nối được AWS IoT Core | Cao | Trung bình | Kiểm tra endpoint, certificate, policy và MQTT topic |
+| IoT Rule không chuyển dữ liệu sang Firehose | Cao | Trung bình | Kiểm tra SQL, IAM role, rule action và CloudWatch Logs |
+| Firehose không ghi được xuống S3 | Cao | Trung bình | Kiểm tra bucket policy, execution role, prefix và error output |
+| Message không đúng schema | Cao | Trung bình | Validate schema trước khi publish và trong Processing Job |
+| Dữ liệu nhiều trạm bị trộn sai | Cao | Trung bình | Bắt buộc có `station_id`, kiểm tra partition và timestamp |
+| Dữ liệu thiếu hoặc không liên tục | Cao | Cao | Resampling, đánh dấu missing values và áp dụng quy tắc xử lý |
+| Mô hình dự báo không tốt hơn baseline | Cao | Trung bình | So sánh baseline, tuning tham số và điều chỉnh feature |
+| Data leakage khi chia tập dữ liệu | Cao | Trung bình | Chia dữ liệu theo thời gian, giữ test set hoàn toàn chưa thấy |
+| SageMaker Endpoint phát sinh chi phí liên tục | Cao | Trung bình | Chỉ bật khi demo hoặc kiểm thử, xóa endpoint sau khi sử dụng |
+| EC2 không được tắt sau khi demo | Trung bình | Trung bình | Thiết lập checklist shutdown và theo dõi Cost Explorer |
+| Không gửi được SNS Email | Trung bình | Thấp | Xác nhận subscription, kiểm tra topic policy và logs |
+| Vượt ngân sách AWS | Cao | Trung bình | AWS Budgets, tagging, kiểm tra chi phí định kỳ |
+| Rò rỉ certificate hoặc private key | Rất cao | Thấp | `.gitignore`, secret scanning và thu hồi certificate khi cần |
+| Không hoàn thành trong 4 tuần | Cao | Trung bình | Giữ phạm vi MVP, ưu tiên pipeline end-to-end trước tính năng mở rộng |
+
+#### Chiến lược giảm thiểu
+
+##### Ingestion
+
+* Test từng tầng riêng biệt trước khi kiểm thử end-to-end.
+* Dùng MQTT Test Client để xác nhận IoT Core nhận message.
+* Theo dõi `IncomingRecords` và `DeliveryToS3.Success`.
+* Cấu hình error action hoặc logging cho IoT Rule.
+* Kiểm tra object thực trong S3 thay vì chỉ dựa vào metrics.
+
+##### Data và Machine Learning
+
+* Lưu dữ liệu raw nguyên bản để có thể xử lý lại.
+* Không sửa trực tiếp dữ liệu raw.
+* Version hóa schema.
+* Tách rõ train, validation và test theo thời gian.
+* Luôn so sánh mô hình với baseline.
+* Không triển khai endpoint nếu mô hình chưa đạt tiêu chí tối thiểu.
+
+##### Bảo mật và chi phí
+
+* Không chia sẻ root account.
+* Áp dụng least privilege.
+* Bật MFA.
+* Không commit secrets.
+* Dừng hoặc xóa tài nguyên sau khi kiểm thử.
+* Theo dõi ngân sách và tag tài nguyên đầy đủ.
+
+#### Kế hoạch dự phòng
+
+* Nếu IoT Core chưa hoạt động, simulator có thể ghi dữ liệu mẫu cục bộ để tiếp tục phát triển processing pipeline.
+* Nếu Firehose gặp lỗi, có thể upload file telemetry mẫu trực tiếp vào S3 Raw để kiểm thử phần Data và ML.
+* Nếu mô hình DeepAR không đạt kết quả phù hợp, có thể dùng baseline hoặc thuật toán dự báo khác.
+* Nếu chưa thể duy trì SageMaker Endpoint, backend có thể đọc kết quả batch forecast đã lưu trên S3.
+* Nếu chưa hoàn thành push notification, phiên bản MVP vẫn giữ Amazon SNS Email.
+* Nếu vượt thời gian, ưu tiên luồng end-to-end với một trạm trước, sau đó mở rộng lên 3 trạm.
+
+### 8. Kết quả kỳ vọng
+
+#### Kết quả kỹ thuật
+
+Sau khi hoàn thành, hệ thống dự kiến đạt được:
+
+* Python Simulator phát dữ liệu từ ít nhất 3 trạm.
+* AWS IoT Core tiếp nhận message MQTT đúng topic.
+* IoT Rule chuyển dữ liệu thành công sang Firehose.
+* Firehose ghi dữ liệu vào S3 Raw.
+* Dữ liệu được làm sạch và lưu trong S3 Processed.
+* Mô hình dự báo PM2.5 được huấn luyện trên SageMaker.
+* SageMaker Endpoint trả về kết quả dự báo 24 giờ.
+* FastAPI cung cấp endpoint truy vấn forecast theo station.
+* Amazon SNS gửi email khi dự báo vượt ngưỡng.
+* CloudWatch cung cấp metrics và logs để kiểm tra hệ thống.
+* Toàn bộ pipeline có evidence triển khai và kiểm thử.
+
+#### Tiêu chí hoàn thành MVP
+
+```text
+1. Có dữ liệu telemetry thực trong S3 Raw.
+2. Có dữ liệu sạch trong S3 Processed.
+3. Có kết quả đánh giá mô hình trên test set.
+4. Có dự báo PM2.5 cho từng station trong 24 giờ.
+5. API trả về kết quả dự báo hợp lệ.
+6. Email cảnh báo được gửi khi vượt ngưỡng.
+7. Có kiểm thử end-to-end và tài liệu triển khai.
+8. Chi phí nằm trong giới hạn ngân sách đã đặt.
+```
+
+#### Giá trị thực tế
+
+Dự án thể hiện khả năng kết hợp IoT, data engineering, machine learning và cloud application thành một hệ thống hoàn chỉnh.
+
+Thay vì chỉ hiển thị chất lượng không khí tại thời điểm hiện tại, hệ thống giúp người dùng chủ động hơn nhờ khả năng dự báo và cảnh báo sớm. Kiến trúc này cũng tạo nền tảng để tiếp tục tích hợp dữ liệu từ cảm biến thực, mở rộng phạm vi quan trắc và phát triển thành một ứng dụng hỗ trợ sức khỏe cộng đồng trong tương lai.

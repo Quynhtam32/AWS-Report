@@ -1,59 +1,34 @@
 ---
 title: "Worklog Tuần 3"
-date: 2024-01-01
-weight: 1
+date: 2026-06-15
+weight: 3
 chapter: false
 pre: " <b> 1.3. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
-
 
 ### Mục tiêu tuần 3:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Tiếp tục tìm hiểu các dịch vụ AWS thông qua các bài thực hành.
+* Hoàn thiện đề xuất dự án đầu tiên cho **Đề tài 5 – Machine Learning on AWS**.
+* Xây dựng và tối ưu kiến trúc AWS ban đầu dựa trên yêu cầu kỹ thuật và giới hạn chi phí.
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Công việc đã hoàn thành trong tuần
 
+| Ngày | Công việc | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| --- | --- | --- | --- | --- |
+| 1 | Tìm hiểu **Amazon EC2** thông qua **Module 02 – Lab 03–04.1: Create EC2 Instances in Subnets**. Nắm được các kiến thức cơ bản về EC2, VPC, Subnet, Security Group và cấu hình mạng trên AWS. | 15/06/2026 | 15/06/2026 | AWS Study Group Lab – Module 02 Lab 03–04.1 |
+| 2 | Thực hành tạo và cấu hình Amazon EC2. Tìm hiểu mối quan hệ giữa EC2, Subnet, Security Group và các tài nguyên mạng khác trên AWS. | 16/06/2026 | 16/06/2026 | Tài liệu Amazon EC2 |
+| 3 | Tham gia hoàn thiện **Project Proposal**. Thảo luận và thống nhất kiến trúc tổng thể, luồng triển khai hệ thống và định hướng phát triển dự án cùng các thành viên trong nhóm. | 17/06/2026 | 17/06/2026 | Tài liệu Project Proposal của nhóm |
+| 4 | Nghiên cứu **OpenAQ** làm nguồn dữ liệu chính cho dự án. Hoàn thiện việc lựa chọn AWS Region, mục tiêu dự báo PM2.5, khoảng thời gian dự báo 24 giờ và định dạng dữ liệu đầu vào. | 18/06/2026 | 18/06/2026 | Tài liệu OpenAQ, Tài liệu thiết kế hệ thống |
+| 5 | Rà soát kiến trúc AWS ban đầu. Đề xuất các giải pháp tối ưu chi phí bằng AWS Lambda, Amazon S3 và Amazon DynamoDB. Đồng thời xây dựng quy ước đặt tên (Naming Convention), quy tắc gắn thẻ (Tagging Convention) và chuẩn bị **AWS Resource Inventory** để quản lý tài nguyên của dự án. | 19/06/2026 | 19/06/2026 | AWS Well-Architected Framework, Tài liệu nội bộ của nhóm, AWS Resource Inventory |
 
-### Kết quả đạt được tuần 3:
+### Kiến thức và kinh nghiệm đạt được:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Hiểu được cách lựa chọn dịch vụ AWS dựa trên:
+  * Yêu cầu của hệ thống.
+  * Khả năng mở rộng.
+  * Chi phí vận hành.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Nâng cao khả năng thiết kế kiến trúc hệ thống cloud và hiểu được sự kết hợp giữa các dịch vụ AWS.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Nhận thức được tầm quan trọng của việc cân bằng giữa hiệu năng hệ thống và tối ưu chi phí khi xây dựng giải pháp cloud.

@@ -1,31 +1,54 @@
 ---
 title: "Workshop"
-date: 2024-01-01
+date: 2026-07-31
 weight: 5
 chapter: false
 pre: " <b> 5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
+
+{{% notice info %}}
+This section is the **main technical project** of the report. It is organized by team role so it matches both the real implementation split and the final end-to-end demo flow.
 {{% /notice %}}
 
-# Secure Hybrid Access to S3 using VPC Endpoints
+# Workshop for deploying the Local AQI Forecasting & Alert System on AWS
 
 #### Overview
 
-**AWS PrivateLink** provides private connectivity to AWS services from VPCs and your on-premises networks, without exposing your traffic to the Public Internet.
+This workshop is written around **one complete end-to-end flow** instead of isolated AWS services. Each role explains:
 
-In this lab, you will learn how to create, configure, and test VPC endpoints that enable your workloads to reach AWS services without traversing the Public Internet.
++ what steps were implemented,
++ what component was created,
++ and what outcome was achieved in the overall system.
 
-You will create two types of endpoints to access Amazon S3: a Gateway VPC endpoint, and an Interface VPC endpoint. These two types of VPC endpoints offer different benefits depending on if you are accessing Amazon S3 from the cloud or your on-premises location
-+ **Gateway** - Create a gateway endpoint to send traffic to Amazon S3 or DynamoDB using private IP addresses.You route traffic from your VPC to the gateway endpoint using route tables.
-+ **Interface** - Create an interface endpoint to send traffic to endpoint services that use a Network Load Balancer to distribute traffic. Traffic destined for the endpoint service is resolved using DNS.
+Main demo flow:
+
+```text
+Simulator
+-> AWS IoT Core
+-> IoT Rule
+-> Kinesis Data Firehose
+-> S3 Raw
+-> Data Processing
+-> S3 Processed
+-> SageMaker Training / Forecast Result
+-> FastAPI
+-> SNS Email
+```
+
+#### Role-based breakdown
+
++ `5.3 DevOps`: problem definition, architecture, naming/tagging, IAM account setup, and access control.
++ `5.4 Ingestion`: sending simulator data through IoT Core, Firehose, and into S3 Raw.
++ `5.5 Data Preparation`: reading raw data, cleaning it, and producing ML-ready datasets.
++ `5.6 Machine Learning`: training the PM2.5 forecasting model and producing forecast results.
++ `5.7 Backend`: exposing the API and sending SNS alerts.
 
 #### Content
 
-1. [Workshop overview](5.1-Workshop-overview)
-2. [Prerequiste](5.2-Prerequiste/)
-3. [Access S3 from VPC](5.3-S3-vpc/)
-4. [Access S3 from On-premises](5.4-S3-onprem/)
-5. [VPC Endpoint Policies (Bonus)](5.5-Policy/)
-6. [Clean up](5.6-Cleanup/)
+1. [Workshop overview](5.1-Workshop-overview/)
+2. [Prerequisites](5.2-Prerequiste/)
+3. [DevOps: architecture, IAM, and account governance](5.3-DevOps/)
+4. [Ingestion: Simulator -> IoT Core -> Firehose -> S3 Raw](5.4-Ingestion/)
+5. [Data Preparation: data processing and normalization](5.5-Policy/)
+6. [Machine Learning: training and forecast generation](5.6-Cleanup/)
+7. [Deploy the FastAPI backend](5.7-Backend-deployment/)

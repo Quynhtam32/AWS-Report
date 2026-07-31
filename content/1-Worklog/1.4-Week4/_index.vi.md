@@ -1,59 +1,34 @@
 ---
 title: "Worklog Tuần 4"
-date: 2024-01-01
-weight: 1
+date: 2026-06-22
+weight: 4
 chapter: false
 pre: " <b> 1.4. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
-
 
 ### Mục tiêu tuần 4:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Bắt đầu triển khai phần Storage/Data trong kiến trúc hệ thống.
+* Tìm hiểu các tính năng nâng cao của Amazon S3 và áp dụng để xây dựng Data Lake.
+* Thiết kế schema dữ liệu AQI và chuẩn bị quy trình xử lý dữ liệu phục vụ Machine Learning.
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Công việc đã hoàn thành trong tuần
 
+| Ngày | Công việc | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| --- | --- | --- | --- | --- |
+| 1 | Nghiên cứu các kiến thức nâng cao về Amazon S3, bao gồm kiến trúc bucket, cách tổ chức object, các lớp lưu trữ (Storage Class) và các thực tiễn tốt trong quản lý dữ liệu. | 22/06/2026 | 22/06/2026 | Tài liệu Amazon S3 |
+| 2 | Tìm hiểu kiến trúc Data Lake trên AWS và thiết kế cấu trúc thư mục S3 cho các vùng dữ liệu Raw, Processed, ML, Models và Monitoring. | 23/06/2026 | 23/06/2026 | AWS Well-Architected Framework, Tài liệu Amazon S3 |
+| 3 | Thực hành Amazon S3 Versioning và Lifecycle Policy nhằm tìm hiểu cơ chế bảo vệ dữ liệu và tối ưu chi phí lưu trữ. | 24/06/2026 | 24/06/2026 | Tài liệu Amazon S3 Versioning & Lifecycle |
+| 4 | Thiết kế schema dữ liệu ban đầu cho hệ thống dự báo chất lượng không khí (AQI), bao gồm thông tin thiết bị, thời gian, PM2.5, PM10, nhiệt độ, độ ẩm và các thuộc tính cần thiết của dự án. | 25/06/2026 | 25/06/2026 | Tài liệu thiết kế hệ thống |
+| 5 | Tìm hiểu Amazon SageMaker Processing Job và thực hiện thử nghiệm đọc, xử lý bộ dữ liệu mẫu được lưu trữ trên Amazon S3. | 26/06/2026 | 26/06/2026 | Tài liệu Amazon SageMaker |
 
-### Kết quả đạt được tuần 4:
+### Kiến thức và kinh nghiệm đạt được:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Hiểu được vai trò của Amazon S3 trong việc xây dựng Data Lake.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Hiểu được lợi ích của việc phân chia dữ liệu thành các zone:
+  * Dễ quản lý dữ liệu.
+  * Hỗ trợ các bước xử lý tiếp theo.
+  * Giúp duy trì pipeline Machine Learning hiệu quả hơn.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Có thêm kinh nghiệm trong việc chuẩn bị và chuẩn hóa dữ liệu trước khi đưa vào mô hình Machine Learning.

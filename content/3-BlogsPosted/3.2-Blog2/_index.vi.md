@@ -1,31 +1,58 @@
 ---
 title: "Blog 2"
 date: 2024-01-01
-weight: 1
+weight: 2
 chapter: false
 pre: " <b> 3.2. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
-# SESSION POLICIES TRONG AMAZON EKS POD IDENTITY
+# Tại sao REST API không phải lúc nào cũng tốt? Sức mạnh của Pub/Sub và MQTT trong hệ thống phân tán
 
-Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+Bài viết này phân tích những hạn chế của REST API trong các hệ thống phân tán và thời gian thực, đồng thời giới thiệu mô hình Publish/Subscribe (Pub/Sub) sử dụng giao thức MQTT và cách kiến trúc hướng sự kiện (Event-Driven Architecture) trên AWS giúp hệ thống mở rộng linh hoạt hơn.
 
-Các điểm chính cần nắm:
+Các nội dung chính của bài viết:
 
-* Session policy là một IAM policy inline được chỉ định khi tạo hoặc cập nhật Pod Identity association.
-* Quyền hiệu quả = intersection (giao) giữa permissions của IAM role và session policy → session policy chỉ có thể thu hẹp, không thể mở rộng quyền.
-* Giúp tránh tình trạng over-permissioning khi reuse chung một IAM role cho nhiều workloads có nhu cầu khác nhau.
-* Hỗ trợ cả same-account và cross-account (qua IAM role chaining).
-* Giảm đáng kể số lượng IAM roles cần quản lý, tránh chạm giới hạn quota IAM trong cluster lớn.
-* Cấu hình dễ dàng qua AWS Management Console, AWS CLI hoặc AWS SDK khi tạo association giữa Kubernetes ServiceAccount và IAM role.
+* Phân tích những hạn chế của mô hình giao tiếp HTTP/REST đồng bộ trong các hệ thống quy mô lớn.
+* Giới thiệu mô hình Publish/Subscribe và vai trò của MQTT Broker.
+* Những ưu điểm của MQTT trong các hệ thống IoT như giao tiếp nhẹ, bất đồng bộ và tiết kiệm băng thông.
+* Tìm hiểu các dịch vụ AWS hỗ trợ kiến trúc Event-Driven:
+  * AWS IoT Core.
+  * Amazon SNS.
+  * Amazon EventBridge.
+* Minh họa luồng dữ liệu IoT thực tế với:
+  * MQTT Gateway.
+  * AWS IoT Core.
+  * IoT Rules Engine.
+  * Amazon Kinesis Data Firehose.
+  * Amazon S3.
+  * AWS Lambda.
+* Lợi ích của việc tách rời các thành phần trong hệ thống nhằm tăng khả năng mở rộng, độ tin cậy và dễ bảo trì.
 
-Tính năng này đặc biệt hữu ích khi bạn có nhiều ứng dụng chạy trên cùng một IAM role nhưng cần giới hạn quyền khác nhau (ví dụ: một pod chỉ đọc S3 bucket cụ thể, pod khác chỉ gọi một số API nhất định).
+Bài viết cũng so sánh giữa kiến trúc REST API truyền thống và mô hình Pub/Sub, giúp người đọc hiểu khi nào nên áp dụng kiến trúc hướng sự kiện trong các hệ thống Cloud Native và IoT.
 
-...Hình ảnh...
+### Link bài viết
 
-...Link...
+https://www.facebook.com/groups/660548818043427/?multi_permalinks=2228776647887295&ref=share
 
-...Hướng dẫn...
+### Tài liệu tham khảo
+
+* AWS IoT Core Developer Guide  
+  https://docs.aws.amazon.com/iot/latest/developerguide/
+
+* AWS IoT Core Rules Engine  
+  https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html
+
+* MQTT Version 5.0 Specification  
+  https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html
+
+* Amazon EventBridge Documentation  
+  https://docs.aws.amazon.com/eventbridge/
+
+* Amazon SNS Documentation  
+  https://docs.aws.amazon.com/sns/
+
+* Amazon Kinesis Data Firehose Documentation  
+  https://docs.aws.amazon.com/firehose/
+
+* AWS Well-Architected Framework – Kiến trúc hướng sự kiện  
+  https://docs.aws.amazon.com/wellarchitected/

@@ -1,57 +1,38 @@
 ---
 title: "Week 8 Worklog"
-date: 2024-01-01
-weight: 1
+date: 2026-07-20
+weight: 8
 chapter: false
 pre: " <b> 1.8. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
-
 
 ### Week 8 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Complete the Data Lake and review the entire Storage/Data pipeline.
+* Ensure data consistency and readiness for the final project demonstration.
+* Finalize documentation and support the team in preparing the final report and demo.
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Tasks Completed This Week
 
+| Day | Task | Start Date | Completion Date | Reference Material |
+| --- | --- | --- | --- | --- |
+| 1 | Review the overall Amazon S3 Data Lake architecture and verify the consistency between the **raw**, **processed**, **ml**, **models**, and **monitoring** storage layers. | 20/07/2026 | 20/07/2026 | Internal architecture documentation |
+| 2 | Validate the processed datasets prepared for Machine Learning, including schema consistency, timestamp format, and Parquet output for model training. | 21/07/2026 | 21/07/2026 | Data processing documentation |
+| 3 | Complete the Storage and Data Pipeline documentation, including the S3 Data Lake structure, Kinesis Data Firehose workflow, raw validation, data preprocessing, and storage cost optimization strategies. | 22/07/2026 | 22/07/2026 | Project documentation |
+| 4 | Support the team in preparing the final project report and presentation slides. Review the Storage/Data Pipeline section and ensure all technical documentation is complete and consistent. | 23/07/2026 | 23/07/2026 | Team meeting notes |
+| 5 | Participate in the final system integration review and demonstration preparation. Verify the complete data pipeline from AWS IoT Core → Kinesis Data Firehose → Amazon S3 → Data Processing → Machine Learning to ensure stable operation during the final presentation. | 24/07/2026 | 24/07/2026 | Capstone project documentation |
 
-### Week 8 Achievements:
+### Lessons Learned:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Understood the importance of documentation and system review before project deployment.
 
-* Successfully created and configured an AWS Free Tier account.
+* Learned how to maintain a complete Data Lake workflow from:
+  * Data collection.
+  * Data storage.
+  * Data processing.
+  * Machine Learning integration.
+  * Application demonstration.
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+* Gained practical experience in collaborating with different project teams to complete an AWS-based system.
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Improved understanding of designing and operating a cloud-based data pipeline in a real project environment.

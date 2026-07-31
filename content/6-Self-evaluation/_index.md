@@ -5,13 +5,9 @@ weight: 6
 chapter: false
 pre: " <b> 6. </b> "
 ---
+During my internship at **Amazon Web Services Vietnam Company Limited** from **08/06/2026** to **24/07/2026**, I had the opportunity to learn, practice, and apply the knowledge acquired in school to a real-world cloud computing environment.
 
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy it verbatim** into your report, including this warning.
-{{% /notice %}}
-
-During my internship at **[Company/Organization Name]** from **[start date]** to **[end date]**, I had the opportunity to learn, practice, and apply the knowledge acquired in school to a real-world working environment.  
-I participated in **[briefly describe the main project or task]**, through which I improved my skills in **[list skills: programming, analysis, reporting, communication, etc.]**.  
+I participated in the project **"Local Air Pollution Forecasting and Warning System using Machine Learning on AWS"**, where I was responsible for researching and implementing the **Storage/Data component**, including data storage management, Data Lake design, and data processing workflow. Through this project, I improved my skills in **AWS cloud services, data analysis, data processing, system design, technical reporting, and teamwork**.
 
 In terms of work ethic, I always strived to complete tasks well, complied with workplace regulations, and actively engaged with colleagues to improve work efficiency.
 
@@ -23,7 +19,7 @@ To objectively reflect on my internship period, I would like to evaluate myself 
 | 2   | **Ability to learn**                | Ability to absorb new knowledge and learn quickly                                                | ☐    | ✅    | ☐       |
 | 3   | **Proactiveness**                   | Taking initiative, seeking out tasks without waiting for instructions                            | ✅    | ☐    | ☐       |
 | 4   | **Sense of responsibility**         | Completing tasks on time and ensuring quality                                                    | ✅    | ☐    | ☐       |
-| 5   | **Discipline**                      | Adhering to schedules, rules, and work processes                                                 | ☐    | ☐    | ✅       |
+| 5   | **Discipline**                      | Adhering to schedules, rules, and work processes                                                 | ☐    | ✅    | ☐       |
 | 6   | **Progressive mindset**             | Willingness to receive feedback and improve oneself                                              | ☐    | ✅    | ☐       |
 | 7   | **Communication**                   | Presenting ideas and reporting work clearly                                                      | ☐    | ✅    | ☐       |
 | 8   | **Teamwork**                        | Working effectively with colleagues and participating in teams                                   | ✅    | ☐    | ☐       |
@@ -34,6 +30,8 @@ To objectively reflect on my internship period, I would like to evaluate myself 
 
 ### Needs Improvement
 
-* Strengthen discipline and strictly comply with the rules and regulations of the company or any organization  
-* Improve problem-solving thinking  
-* Enhance communication skills in both daily interactions and professional contexts, including handling situations effectively
+* Improve AWS technical knowledge and gain more hands-on experience with cloud services in real-world projects.
+
+* Develop stronger problem-solving skills when dealing with technical issues during system implementation.
+
+* Enhance communication and presentation skills to explain technical solutions more clearly during teamwork and project demonstrations.

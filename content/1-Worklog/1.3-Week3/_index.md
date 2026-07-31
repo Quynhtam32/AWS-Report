@@ -1,57 +1,34 @@
 ---
 title: "Week 3 Worklog"
-date: 2024-01-01
-weight: 1
+date: 2026-06-15
+weight: 3
 chapter: false
 pre: " <b> 1.3. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
-
 
 ### Week 3 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Continue learning AWS services through hands-on labs.
+* Complete the first project proposal for **Topic 5 – Machine Learning on AWS**.
+* Design and optimize the initial AWS architecture based on project requirements and cost limitations.
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Tasks Completed This Week
 
+| Day | Task | Start Date | Completion Date | Reference Material |
+| --- | --- | --- | --- | --- |
+| 1 | Studied **Amazon EC2** through **Module 02 – Lab 03–04.1: Create EC2 Instances in Subnets**. Learned the fundamentals of EC2 instances, VPC, subnets, security groups, and networking configuration. | 15/06/2026 | 15/06/2026 | AWS Study Group Lab – Module 02 Lab 03–04.1 |
+| 2 | Practiced creating and configuring Amazon EC2 instances. Explored the relationship between EC2, subnets, security groups, and other networking resources. | 16/06/2026 | 16/06/2026 | AWS EC2 Documentation |
+| 3 | Participated in completing the **Project Proposal**. Discussed and finalized the overall system architecture, implementation workflow, and project development direction with team members. | 17/06/2026 | 17/06/2026 | Team Proposal Document |
+| 4 | Researched **OpenAQ** as the primary data source for the project. Finalized the AWS Region, PM2.5 prediction target, 24-hour forecasting horizon, and input data format. | 18/06/2026 | 18/06/2026 | OpenAQ Documentation, System Design Document |
+| 5 | Reviewed the initial AWS architecture. Proposed cost optimization strategies using AWS Lambda, Amazon S3, and Amazon DynamoDB. Established AWS resource naming conventions, tagging standards, and prepared the AWS Resource Inventory for project resource tracking. | 19/06/2026 | 19/06/2026 | AWS Well-Architected Framework, Internal Team Documentation, AWS Resource Inventory |
 
-### Week 3 Achievements:
+### Lessons Learned:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Learned how to select AWS services based on:
+  * Project requirements.
+  * System scalability.
+  * Operational cost.
 
-* Successfully created and configured an AWS Free Tier account.
+* Improved understanding of AWS architecture design and the relationship between different cloud services.
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Realized the importance of balancing technical performance and cost efficiency when designing cloud-based systems.

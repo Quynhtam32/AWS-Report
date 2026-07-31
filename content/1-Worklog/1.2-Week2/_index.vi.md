@@ -1,59 +1,37 @@
 ---
 title: "Worklog Tuần 2"
-date: 2024-01-01
-weight: 1
+date: 2026-06-08
+weight: 2
 chapter: false
 pre: " <b> 1.2. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
-
 
 ### Mục tiêu tuần 2:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Tiếp tục hoàn thiện ý tưởng dự án **Đề tài 5 – Machine Learning on AWS**.
+* Tìm hiểu các dịch vụ AWS cần thiết để triển khai hệ thống.
+* Làm quen với việc quản lý chi phí và theo dõi tài nguyên trên AWS.
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Công việc đã hoàn thành trong tuần
 
+| Ngày | Công việc | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| --- | --- | --- | --- | --- |
+| 1 | Tiếp tục thảo luận và hoàn thiện ý tưởng dự án cùng các thành viên trong nhóm. Xác định phạm vi và mục tiêu ban đầu của **Hệ thống dự báo và cảnh báo ô nhiễm không khí cục bộ**. | 08/06/2026 | 08/06/2026 | Ghi chú họp nhóm |
+| 2 | Nghiên cứu các dịch vụ AWS có thể áp dụng cho dự án, tập trung vào Amazon S3 và Amazon EC2. | 09/06/2026 | 09/06/2026 | Tài liệu AWS (Amazon S3, Amazon EC2) |
+| 3 | Thảo luận cùng các thành viên trong nhóm, phân chia chủ đề tự học và phân công phụ trách các dịch vụ AWS cũng như các thành phần của dự án. | 09/06/2026 | 09/06/2026 | Ghi chú họp nhóm, Tài liệu nội bộ của nhóm |
+| 4 | Hoàn thành **Lab 07 – AWS Budgets**. Tìm hiểu cách tạo ngân sách, cấu hình cảnh báo và theo dõi chi phí sử dụng các dịch vụ AWS. | 11/06/2026 | 11/06/2026 | https://000007.awsstudygroup.com/vi/ |
+| 5 | Theo dõi chi phí AWS định kỳ, đánh giá việc sử dụng tài nguyên và tìm hiểu các phương pháp tối ưu nhằm giảm thiểu chi phí không cần thiết trên nền tảng đám mây. | 12/06/2026 | 12/06/2026 | Tài liệu AWS Cost Management |
 
-### Kết quả đạt được tuần 2:
+### Kiến thức và kinh nghiệm đạt được:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Hiểu được việc lựa chọn dịch vụ AWS cần dựa trên:
+  * Yêu cầu kỹ thuật của hệ thống.
+  * Khả năng mở rộng.
+  * Chi phí vận hành.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Nhận thức được tầm quan trọng của việc quản lý chi phí cloud ngay từ giai đoạn đầu của dự án.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Cải thiện kỹ năng làm việc nhóm thông qua:
+  * Trao đổi giải pháp kỹ thuật.
+  * Phân chia nhiệm vụ học tập.
+  * Phối hợp chuẩn bị nội dung dự án.

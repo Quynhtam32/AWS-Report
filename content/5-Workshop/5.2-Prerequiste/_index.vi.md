@@ -1,242 +1,309 @@
 ---
-title : "Các bước chuẩn bị"
-date : 2024-01-01 
-weight : 2
-chapter : false
-pre : " <b> 5.2. </b> "
----
 
-#### IAM permissions
-Gắn IAM permission policy sau vào tài khoản aws user của bạn để triển khai và dọn dẹp tài nguyên trong workshop này.
+title: "Điều kiện tiên quyết"
+date: 2026-07-31
+weight: 2
+chapter: false
+pre: " <b> 5.2. </b> "
+----------------------
+
+#### Chuẩn bị tài khoản và quyền truy cập AWS
+
+Trước khi triển khai hệ thống, nhóm cần chuẩn bị một AWS account có khả năng sử dụng các dịch vụ chính của dự án.
+
+Toàn bộ tài nguyên được triển khai thống nhất tại Region:
+
+```text
+Asia Pacific (Singapore)
+ap-southeast-1
 ```
+
+Việc sử dụng chung một Region giúp nhóm:
+
+* Tránh tạo nhầm tài nguyên ở nhiều Region.
+* Dễ quản lý chi phí và trạng thái hoạt động.
+* Giảm lỗi khi liên kết IoT Core, Firehose, S3 và SageMaker.
+* Thống nhất cấu hình giữa các thành viên.
+
+#### IAM user và nguyên tắc phân quyền
+
+Không sử dụng hoặc chia sẻ tài khoản Root cho các thành viên trong nhóm.
+
+Mỗi thành viên sử dụng IAM user riêng để:
+
+* Đăng nhập AWS Management Console.
+* Thao tác với các service được phân công.
+* Tạo và kiểm tra resource thuộc module phụ trách.
+* Hạn chế ảnh hưởng đến tài nguyên của thành viên khác.
+
+Các quyền IAM được cấp theo vai trò và phạm vi công việc, thay vì cấp toàn quyền cho mỗi thành viên.
+
+Một số nhóm quyền cần thiết trong quá trình triển khai gồm:
+
+```text
+AWS IoT Core
+Amazon Data Firehose
+Amazon S3
+Amazon SageMaker AI
+Amazon CloudWatch
+Amazon SNS
+IAM PassRole
+Billing read-only nếu cần kiểm tra chi phí
+```
+
+Các quyền liên quan đến IAM role chỉ được cấp trong thời gian cần thiết. Sau khi thành viên hoàn tất việc tạo role hoặc cấu hình service, quyền tạm thời cần được thu hồi.
+
+#### Các IAM role của dự án
+
+Dự án sử dụng các IAM role riêng cho từng service.
+
+| IAM role                                 | Trusted service      | Mục đích                                                                        |
+| ---------------------------------------- | -------------------- | ------------------------------------------------------------------------------- |
+| `local-aqi-dev-iot-to-firehose`          | AWS IoT Core         | Cho phép IoT Rule gửi record sang Firehose                                      |
+| `local-aqi-dev-firehose-to-s3`           | Amazon Data Firehose | Cho phép Firehose ghi dữ liệu vào S3 Raw và ghi error log                       |
+| `local-aqi-dev-sagemaker-execution-role` | Amazon SageMaker AI  | Cho phép SageMaker đọc dữ liệu, chạy Processing, Training và lưu model artifact |
+
+Trust policy của mỗi role phải xác định đúng service được phép assume role.
+
+Ví dụ, role dùng cho AWS IoT Core cần trust:
+
+```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "cloudformation:*",
-                "cloudwatch:*",
-                "ec2:AcceptTransitGatewayPeeringAttachment",
-                "ec2:AcceptTransitGatewayVpcAttachment",
-                "ec2:AllocateAddress",
-                "ec2:AssociateAddress",
-                "ec2:AssociateIamInstanceProfile",
-                "ec2:AssociateRouteTable",
-                "ec2:AssociateSubnetCidrBlock",
-                "ec2:AssociateTransitGatewayRouteTable",
-                "ec2:AssociateVpcCidrBlock",
-                "ec2:AttachInternetGateway",
-                "ec2:AttachNetworkInterface",
-                "ec2:AttachVolume",
-                "ec2:AttachVpnGateway",
-                "ec2:AuthorizeSecurityGroupEgress",
-                "ec2:AuthorizeSecurityGroupIngress",
-                "ec2:CreateClientVpnEndpoint",
-                "ec2:CreateClientVpnRoute",
-                "ec2:CreateCustomerGateway",
-                "ec2:CreateDhcpOptions",
-                "ec2:CreateFlowLogs",
-                "ec2:CreateInternetGateway",
-                "ec2:CreateLaunchTemplate",
-                "ec2:CreateNetworkAcl",
-                "ec2:CreateNetworkInterface",
-                "ec2:CreateNetworkInterfacePermission",
-                "ec2:CreateRoute",
-                "ec2:CreateRouteTable",
-                "ec2:CreateSecurityGroup",
-                "ec2:CreateSubnet",
-                "ec2:CreateSubnetCidrReservation",
-                "ec2:CreateTags",
-                "ec2:CreateTransitGateway",
-                "ec2:CreateTransitGatewayPeeringAttachment",
-                "ec2:CreateTransitGatewayPrefixListReference",
-                "ec2:CreateTransitGatewayRoute",
-                "ec2:CreateTransitGatewayRouteTable",
-                "ec2:CreateTransitGatewayVpcAttachment",
-                "ec2:CreateVpc",
-                "ec2:CreateVpcEndpoint",
-                "ec2:CreateVpcEndpointConnectionNotification",
-                "ec2:CreateVpcEndpointServiceConfiguration",
-                "ec2:CreateVpnConnection",
-                "ec2:CreateVpnConnectionRoute",
-                "ec2:CreateVpnGateway",
-                "ec2:DeleteCustomerGateway",
-                "ec2:DeleteFlowLogs",
-                "ec2:DeleteInternetGateway",
-                "ec2:DeleteNetworkInterface",
-                "ec2:DeleteNetworkInterfacePermission",
-                "ec2:DeleteRoute",
-                "ec2:DeleteRouteTable",
-                "ec2:DeleteSecurityGroup",
-                "ec2:DeleteSubnet",
-                "ec2:DeleteSubnetCidrReservation",
-                "ec2:DeleteTags",
-                "ec2:DeleteTransitGateway",
-                "ec2:DeleteTransitGatewayPeeringAttachment",
-                "ec2:DeleteTransitGatewayPrefixListReference",
-                "ec2:DeleteTransitGatewayRoute",
-                "ec2:DeleteTransitGatewayRouteTable",
-                "ec2:DeleteTransitGatewayVpcAttachment",
-                "ec2:DeleteVpc",
-                "ec2:DeleteVpcEndpoints",
-                "ec2:DeleteVpcEndpointServiceConfigurations",
-                "ec2:DeleteVpnConnection",
-                "ec2:DeleteVpnConnectionRoute",
-                "ec2:Describe*",
-                "ec2:DetachInternetGateway",
-                "ec2:DisassociateAddress",
-                "ec2:DisassociateRouteTable",
-                "ec2:GetLaunchTemplateData",
-                "ec2:GetTransitGatewayAttachmentPropagations",
-                "ec2:ModifyInstanceAttribute",
-                "ec2:ModifySecurityGroupRules",
-                "ec2:ModifyTransitGatewayVpcAttachment",
-                "ec2:ModifyVpcAttribute",
-                "ec2:ModifyVpcEndpoint",
-                "ec2:ReleaseAddress",
-                "ec2:ReplaceRoute",
-                "ec2:RevokeSecurityGroupEgress",
-                "ec2:RevokeSecurityGroupIngress",
-                "ec2:RunInstances",
-                "ec2:StartInstances",
-                "ec2:StopInstances",
-                "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
-                "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
-                "iam:AddRoleToInstanceProfile",
-                "iam:AttachRolePolicy",
-                "iam:CreateInstanceProfile",
-                "iam:CreatePolicy",
-                "iam:CreateRole",
-                "iam:DeleteInstanceProfile",
-                "iam:DeletePolicy",
-                "iam:DeleteRole",
-                "iam:DeleteRolePolicy",
-                "iam:DetachRolePolicy",
-                "iam:GetInstanceProfile",
-                "iam:GetPolicy",
-                "iam:GetRole",
-                "iam:GetRolePolicy",
-                "iam:ListPolicyVersions",
-                "iam:ListRoles",
-                "iam:PassRole",
-                "iam:PutRolePolicy",
-                "iam:RemoveRoleFromInstanceProfile",
-                "lambda:CreateFunction",
-                "lambda:DeleteFunction",
-                "lambda:DeleteLayerVersion",
-                "lambda:GetFunction",
-                "lambda:GetLayerVersion",
-                "lambda:InvokeFunction",
-                "lambda:PublishLayerVersion",
-                "logs:CreateLogGroup",
-                "logs:DeleteLogGroup",
-                "logs:DescribeLogGroups",
-                "logs:PutRetentionPolicy",
-                "route53:ChangeTagsForResource",
-                "route53:CreateHealthCheck",
-                "route53:CreateHostedZone",
-                "route53:CreateTrafficPolicy",
-                "route53:DeleteHostedZone",
-                "route53:DisassociateVPCFromHostedZone",
-                "route53:GetHostedZone",
-                "route53:ListHostedZones",
-                "route53domains:ListDomains",
-                "route53domains:ListOperations",
-                "route53domains:ListTagsForDomain",
-                "route53resolver:AssociateResolverEndpointIpAddress",
-                "route53resolver:AssociateResolverRule",
-                "route53resolver:CreateResolverEndpoint",
-                "route53resolver:CreateResolverRule",
-                "route53resolver:DeleteResolverEndpoint",
-                "route53resolver:DeleteResolverRule",
-                "route53resolver:DisassociateResolverEndpointIpAddress",
-                "route53resolver:DisassociateResolverRule",
-                "route53resolver:GetResolverEndpoint",
-                "route53resolver:GetResolverRule",
-                "route53resolver:ListResolverEndpointIpAddresses",
-                "route53resolver:ListResolverEndpoints",
-                "route53resolver:ListResolverRuleAssociations",
-                "route53resolver:ListResolverRules",
-                "route53resolver:ListTagsForResource",
-                "route53resolver:UpdateResolverEndpoint",
-                "route53resolver:UpdateResolverRule",
-                "s3:AbortMultipartUpload",
-                "s3:CreateBucket",
-                "s3:DeleteBucket",
-                "s3:DeleteObject",
-                "s3:GetAccountPublicAccessBlock",
-                "s3:GetBucketAcl",
-                "s3:GetBucketOwnershipControls",
-                "s3:GetBucketPolicy",
-                "s3:GetBucketPolicyStatus",
-                "s3:GetBucketPublicAccessBlock",
-                "s3:GetObject",
-                "s3:GetObjectVersion",
-                "s3:GetBucketVersioning",
-                "s3:ListAccessPoints",
-                "s3:ListAccessPointsForObjectLambda",
-                "s3:ListAllMyBuckets",
-                "s3:ListBucket",
-                "s3:ListBucketMultipartUploads",
-                "s3:ListBucketVersions",
-                "s3:ListJobs",
-                "s3:ListMultipartUploadParts",
-                "s3:ListMultiRegionAccessPoints",
-                "s3:ListStorageLensConfigurations",
-                "s3:PutAccountPublicAccessBlock",
-                "s3:PutBucketAcl",
-                "s3:PutBucketPolicy",
-                "s3:PutBucketPublicAccessBlock",
-                "s3:PutObject",
-                "secretsmanager:CreateSecret",
-                "secretsmanager:DeleteSecret",
-                "secretsmanager:DescribeSecret",
-                "secretsmanager:GetSecretValue",
-                "secretsmanager:ListSecrets",
-                "secretsmanager:ListSecretVersionIds",
-                "secretsmanager:PutResourcePolicy",
-                "secretsmanager:TagResource",
-                "secretsmanager:UpdateSecret",
-                "sns:ListTopics",
-                "ssm:DescribeInstanceProperties",
-                "ssm:DescribeSessions",
-                "ssm:GetConnectionStatus",
-                "ssm:GetParameters",
-                "ssm:ListAssociations",
-                "ssm:ResumeSession",
-                "ssm:StartSession",
-                "ssm:TerminateSession"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "iot.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
 }
-
 ```
 
-#### Khởi tạo tài nguyên bằng CloudFormation
+Role dùng cho Amazon Data Firehose cần trust:
 
-Trong lab này, chúng ta sẽ dùng N.Virginia region (us-east-1).
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "firehose.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
 
-Để chuẩn bị cho môi trường làm workshop, chúng ta deploy CloudFormation template sau (click link): [PrivateLinkWorkshop ](https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateURL=https://s3.us-east-1.amazonaws.com/reinvent-endpoints-builders-session/Nested.yaml&stackName=PLCloudSetup). Để nguyên các lựa chọn mặc định.
+Role dùng cho Amazon SageMaker AI cần có service principal:
 
-![create stack](/images/5-Workshop/5.2-Prerequisite/create-stack1.png)
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "sagemaker.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
 
-+ Lựa chọn 2 mục acknowledgement 
-+ Chọn Create stack
+Trong giai đoạn phát triển, role SageMaker có thể được cấp thêm trusted services để hỗ trợ quá trình thử nghiệm. Sau khi hệ thống hoàn tất, trust policy và permission policy cần được thu gọn theo nguyên tắc least privilege.
 
-![create stack](/images/5-Workshop/5.2-Prerequisite/create-stack2.png)
+#### Chuẩn bị các S3 bucket
 
-Quá trình triển khai CloudFormation cần khoảng 15 phút để hoàn thành.
+Trước khi triển khai pipeline, cần tạo hai bucket chính:
 
-![complete](/images/5-Workshop/5.2-Prerequisite/complete.png)
+```text
+local-aqi-dev-s3-raw
+local-aqi-dev-s3-processed
+```
 
-+ 2 VPCs đã được tạo
+Trong đó:
 
-![vpcs](/images/5-Workshop/5.2-Prerequisite/vpcs.png)
+* `local-aqi-dev-s3-raw` lưu dữ liệu telemetry được Firehose ghi trực tiếp.
+* `local-aqi-dev-s3-processed` lưu dữ liệu sau khi làm sạch, chuyển đổi và chuẩn bị cho Machine Learning.
 
-+ 3 EC2s đã được tạo
+Dữ liệu Raw được tổ chức theo cấu trúc phân vùng thời gian:
 
-![EC2](/images/5-Workshop/5.2-Prerequisite/ec2.png)
+```text
+raw/
+  year=YYYY/
+    month=MM/
+      day=DD/
+        hour=HH/
+```
+
+Cấu trúc này giúp:
+
+* Dễ truy xuất dữ liệu theo thời gian.
+* Hạn chế phải quét toàn bộ bucket.
+* Thuận tiện cho bước xử lý dữ liệu.
+* Dễ kiểm tra dữ liệu mới được ingest.
+
+#### Chuẩn bị pipeline ingestion
+
+Pipeline ingestion của dự án sử dụng các thành phần:
+
+```text
+MQTT Simulator
+-> AWS IoT Core
+-> IoT Rule
+-> Amazon Data Firehose
+-> Amazon S3 Raw
+```
+
+Các resource chính cần có:
+
+```text
+IoT Thing Group:
+local-aqi-dev-iot-group
+
+IoT Policy:
+local-aqi-dev-iot-policy
+
+IoT Rule:
+Rule chuyển dữ liệu từ MQTT topic sang Firehose
+
+Firehose delivery stream:
+local-aqi-dev-firehose-telemetry
+```
+
+MQTT message cần tuân theo telemetry schema thống nhất.
+
+Ví dụ:
+
+```json
+{
+  "schema_version": "1.0",
+  "station_id": "station_001",
+  "ts_utc": "2026-07-31T08:00:00Z",
+  "pm25_ugm3": 42.5,
+  "pm10_ugm3": 61.2,
+  "temperature_c": 30.5,
+  "humidity_pct": 72,
+  "source": "simulator"
+}
+```
+
+Các field bắt buộc gồm:
+
+```text
+schema_version
+station_id
+ts_utc
+pm25_ugm3
+pm10_ugm3
+temperature_c
+humidity_pct
+source
+```
+
+#### Chuẩn bị môi trường Machine Learning
+
+Mô hình dự báo được huấn luyện bằng Amazon SageMaker AI.
+
+Dữ liệu sử dụng để training gồm:
+
+* Dữ liệu lịch sử PM2.5 đã được thu thập và xử lý.
+* Dữ liệu được chuẩn hóa trong S3 Processed.
+* Các chuỗi thời gian được phân chia theo station và timestamp.
+
+Dữ liệu realtime từ MQTT Simulator chủ yếu dùng để kiểm thử pipeline ingestion và bổ sung dữ liệu mới trong quá trình vận hành. Nhóm không cần chờ simulator thu thập đủ dữ liệu mới bắt đầu training.
+
+Luồng Machine Learning dự kiến:
+
+```text
+S3 Raw
+-> Data Processing
+-> S3 Processed
+-> SageMaker Training Job
+-> Model Artifact
+-> SageMaker Endpoint
+```
+
+Execution role của SageMaker cần tối thiểu các quyền:
+
+```text
+s3:ListBucket
+s3:GetObject
+s3:PutObject
+s3:DeleteObject nếu pipeline cần ghi đè dữ liệu processed
+```
+
+Quyền phải được giới hạn vào đúng hai bucket của dự án thay vì cấp `s3:*` trên toàn bộ account.
+
+#### Chuẩn bị giám sát và cảnh báo
+
+Các dịch vụ cần được theo dõi bằng Amazon CloudWatch:
+
+```text
+Amazon Data Firehose
+SageMaker Training Jobs
+SageMaker Endpoint
+Backend API
+SNS publish result
+```
+
+Firehose cần bật:
+
+```text
+Destination error logs
+Amazon CloudWatch error logging: Enabled
+```
+
+Các log group dự kiến gồm:
+
+```text
+/aws/kinesisfirehose/local-aqi-dev-firehose-telemetry
+/aws/sagemaker/TrainingJobs
+/aws/sagemaker/Endpoints/aqi-endpoint-test
+```
+
+Amazon SNS được sử dụng để gửi email khi giá trị PM2.5 hoặc kết quả forecast vượt ngưỡng cảnh báo.
+
+Email subscription phải có trạng thái:
+
+```text
+Confirmed
+```
+
+trước khi thực hiện kiểm thử gửi thông báo.
+
+#### Kiểm tra điều kiện trước khi triển khai
+
+Trước khi chuyển sang các bước triển khai tiếp theo, cần xác nhận:
+
+```text
+[ ] Đang sử dụng Region ap-southeast-1
+[ ] IAM user đăng nhập được AWS Console
+[ ] IAM role cho IoT Core đã được tạo
+[ ] IAM role cho Firehose đã được tạo
+[ ] IAM role cho SageMaker đã được tạo
+[ ] Bucket S3 Raw đã được tạo
+[ ] Bucket S3 Processed đã được tạo
+[ ] Firehose delivery stream đã được tạo
+[ ] CloudWatch error logging đã được bật
+[ ] SageMaker có thể truy cập dữ liệu trong S3
+[ ] SNS email subscription đã được confirmed
+[ ] AWS Budget đã được thiết lập
+```
+
+Sau khi hoàn tất các điều kiện trên, nhóm có thể tiếp tục triển khai:
+
+```text
+IoT ingestion
+Data processing
+Machine Learning
+Backend API
+SNS Alert
+Integration Testing
+```

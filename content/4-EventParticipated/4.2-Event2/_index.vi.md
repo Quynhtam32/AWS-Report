@@ -1,125 +1,105 @@
 ---
-title: "Event 2"
-date: 2024-01-01
-weight: 1
+title: "Sự kiện 2"
+date: 2026-07-25
+weight: 2
 chapter: false
 pre: " <b> 4.2. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+# Báo cáo tóm tắt: Thuyết trình Capstone Solution
 
-# Bài thu hoạch “GenAI-powered App-DB Modernization workshop”
+## Mục tiêu của sự kiện
 
-### Mục Đích Của Sự Kiện
+- Trình bày các Capstone Solution được phát triển bởi các nhóm tham gia chương trình AWS First Cloud AI Journey (FCAJ).
+- Giới thiệu cách các dịch vụ AWS được tích hợp để giải quyết các bài toán thực tế.
+- Chia sẻ kinh nghiệm triển khai dự án, những khó khăn kỹ thuật và bài học rút ra trong quá trình phát triển.
+- Tiếp nhận các ý kiến đóng góp từ mentor và các nhóm khác nhằm hoàn thiện giải pháp.
 
-- Chia sẻ best practices trong thiết kế ứng dụng hiện đại
-- Giới thiệu phương pháp DDD và event-driven architecture
-- Hướng dẫn lựa chọn compute services phù hợp
-- Giới thiệu công cụ AI hỗ trợ development lifecycle
+## Các nhóm trình bày
 
-### Danh Sách Diễn Giả
+Buổi Capstone Solution Presentation có sự tham gia của bốn nhóm dự án thuộc chương trình AWS First Cloud AI Journey (FCAJ):
 
-- **Jignesh Shah** - Director, Open Source Databases
-- **Erica Liu** - Sr. GTM Specialist, AppMod
-- **Fabrianne Effendi** - Assc. Specialist SA, Serverless Amazon Web Services
+- **SignalScout**
+- **SA_Professional_Native_App**
+- **Hackathon_Journey_3KA**
+- **OneTeam** – *Colonel AI: AI-Powered Conversation Ordering* :contentReference[oaicite:0]{index=0}
 
-### Nội Dung Nổi Bật
+## Nội dung nổi bật
 
-#### Đưa ra các ảnh hưởng tiêu cực của kiến trúc ứng dụng cũ
+### Trình bày Capstone Solution
 
-- Thời gian release sản phẩm lâu → Mất doanh thu/bỏ lỡ cơ hội
-- Hoạt động kém hiệu quả → Mất năng suất, tốn kém chi phí
-- Không tuân thủ các quy định về bảo mật → Mất an ninh, uy tín
+Mỗi nhóm lần lượt giới thiệu Capstone Solution của mình, bao gồm:
 
-#### Chuyển đổi sang kiến trúc ứng dụng mới - Microservice Architecture
+- Bài toán thực tế cần giải quyết.
+- Kiến trúc tổng thể của hệ thống.
+- Các dịch vụ AWS được sử dụng.
+- Quá trình triển khai giải pháp.
+- Những khó khăn kỹ thuật gặp phải.
+- Demo sản phẩm và định hướng phát triển trong tương lai.
 
-Chuyển đổi thành hệ thống modular – từng chức năng là một **dịch vụ độc lập** giao tiếp với nhau qua **sự kiện** với 3 trụ cột cốt lõi:
+### Kiến trúc Cloud-Native
 
-- **Queue Management**: Xử lý tác vụ bất đồng bộ
-- **Caching Strategy:** Tối ưu performance
-- **Message Handling:** Giao tiếp linh hoạt giữa services
+Các dự án đã minh họa việc ứng dụng nhiều dịch vụ AWS trong việc xây dựng hệ thống cloud-native như:
 
-#### Domain-Driven Design (DDD)
+- Amazon S3
+- AWS Lambda
+- Amazon API Gateway
+- Amazon Bedrock
+- Amazon CloudWatch
+- AWS Identity and Access Management (IAM)
+- Amazon EventBridge
+- Amazon SNS
+- AWS Step Functions
+- Amazon DynamoDB
 
-- **Phương pháp 4 bước**: Xác định domain events → sắp xếp timeline → identify actors → xác định bounded contexts
-- **Case study bookstore**: Minh họa cách áp dụng DDD thực tế
-- **Context mapping**: 7 patterns tích hợp bounded contexts
+Những kiến trúc này cho thấy cách xây dựng hệ thống có khả năng mở rộng, tính sẵn sàng cao và tối ưu chi phí trên nền tảng AWS.
 
-#### Event-Driven Architecture
+### Ứng dụng AI và kiến trúc hướng sự kiện
 
-- **3 patterns tích hợp**: Publish/Subscribe, Point-to-point, Streaming
-- **Lợi ích**: Loose coupling, scalability, resilience
-- **So sánh sync vs async**: Hiểu rõ trade-offs (sự đánh đổi)
+Một trong những dự án nổi bật là **Colonel AI – AI-Powered Conversation Ordering** của nhóm **OneTeam**, giới thiệu cách kết hợp Generative AI cùng các dịch vụ AWS để xây dựng hệ thống đặt món hội thoại đa kênh.
 
-#### Compute Evolution
+Một số nội dung nổi bật gồm:
 
-- **Shared Responsibility Model**: Từ EC2 → ECS → Fargate → Lambda
-- **Serverless benefits**: No server management, auto-scaling, pay-for-value
-- **Functions vs Containers**: Criteria lựa chọn phù hợp
+- Kiến trúc Event-Driven.
+- Quy trình hoạt động của AI Agent.
+- Giao tiếp đa kênh.
+- Thiết kế ứng dụng Serverless.
+- Tích hợp các dịch vụ AWS trong hệ thống cloud-native. :contentReference[oaicite:1]{index=1} :contentReference[oaicite:2]{index=2}
 
-#### Amazon Q Developer
+## Kiến thức và kinh nghiệm đạt được
 
-- **SDLC automation**: Từ planning đến maintenance
-- **Code transformation**: Java upgrade, .NET modernization
-- **AWS Transform agents**: VMware, Mainframe, .NET migration
+Thông qua các bài trình bày, em đã học được:
 
-### Những Gì Học Được
+- Cách thiết kế hệ thống cloud-native có khả năng mở rộng trên AWS.
+- Phương pháp lựa chọn các dịch vụ AWS phù hợp với yêu cầu của từng bài toán.
+- Cách tích hợp các công nghệ AI vào ứng dụng trên nền tảng đám mây.
+- Vai trò của kiến trúc Event-Driven trong việc giảm sự phụ thuộc giữa các thành phần của hệ thống.
+- Tầm quan trọng của việc cân bằng giữa hiệu năng, khả năng mở rộng và chi phí triển khai.
 
-#### Tư Duy Thiết Kế
+## Áp dụng vào dự án
 
-- **Business-first approach**: Luôn bắt đầu từ business domain, không phải technology
-- **Ubiquitous language**: Importance của common vocabulary giữa business và tech teams
-- **Bounded contexts**: Cách identify và manage complexity trong large systems
+Với vai trò **Data/Storage Engineer** trong **Đề tài 5 – Machine Learning on AWS**, em nhận thấy nhiều nội dung được chia sẻ tại sự kiện có thể áp dụng trực tiếp vào Capstone Solution của nhóm.
 
-#### Kiến Trúc Kỹ Thuật
+Cụ thể, em học hỏi thêm được:
 
-- **Event storming technique**: Phương pháp thực tế để mô hình hóa quy trình kinh doanh
-- Sử dụng **Event-driven communication** thay vì synchronous calls
-- **Integration patterns**: Hiểu khi nào dùng sync, async, pub/sub, streaming
-- **Compute spectrum**: Criteria chọn từ VM → containers → serverless
+- Cách thiết kế kiến trúc hệ thống cloud có khả năng mở rộng.
+- Phương pháp tích hợp nhiều dịch vụ AWS vào một giải pháp hoàn chỉnh.
+- Kinh nghiệm tối ưu quy trình lưu trữ và xử lý dữ liệu.
+- Cách áp dụng kiến trúc Event-Driven để tăng tính linh hoạt cho hệ thống.
+- Tư duy xây dựng giải pháp cân bằng giữa chức năng, hiệu năng và chi phí.
 
-#### Chiến Lược Hiện Đại Hóa
+Những kiến thức này giúp em có thêm ý tưởng để hoàn thiện kiến trúc Data Lake và quy trình xử lý dữ liệu của dự án.
 
-- **Phased approach**: Không rush, phải có roadmap rõ ràng
-- **7Rs framework**: Nhiều con đường khác nhau tùy thuộc vào đặc điểm của mỗi ứng dụng
-- **ROI measurement**: Cost reduction + business agility
+## Cảm nhận về sự kiện
 
-### Ứng Dụng Vào Công Việc
+Capstone Solution Presentation là một trong những hoạt động ý nghĩa nhất trong suốt chương trình thực tập. Thông qua phần trình bày của các nhóm, em có cơ hội quan sát nhiều cách tiếp cận khác nhau trong việc giải quyết các bài toán thực tế bằng công nghệ điện toán đám mây của AWS.
 
-- **Áp dụng DDD** cho project hiện tại: Event storming sessions với business team
-- **Refactor microservices**: Sử dụng bounded contexts để identify service boundaries
-- **Implement event-driven patterns**: Thay thế một số sync calls bằng async messaging
-- **Serverless adoption**: Pilot AWS Lambda cho một số use cases phù hợp
-- **Try Amazon Q Developer**: Integrate vào development workflow để boost productivity
+Mỗi nhóm đều mang đến những ý tưởng và giải pháp riêng, giúp em hiểu rõ hơn về quá trình thiết kế kiến trúc hệ thống, lựa chọn dịch vụ AWS phù hợp cũng như cách triển khai một sản phẩm hoàn chỉnh trên nền tảng Cloud.
 
-### Trải nghiệm trong event
+Đặc biệt, em ấn tượng với phần trình bày của nhóm **OneTeam** về dự án **Colonel AI – AI-Powered Conversation Ordering**. Dự án đã cho thấy cách kết hợp Generative AI, kiến trúc Event-Driven và mô hình Serverless để xây dựng một hệ thống hội thoại thông minh có khả năng mở rộng và dễ dàng phát triển thêm các tính năng trong tương lai. :contentReference[oaicite:3]{index=3}
 
-Tham gia workshop **“GenAI-powered App-DB Modernization”** là một trải nghiệm rất bổ ích, giúp tôi có cái nhìn toàn diện về cách hiện đại hóa ứng dụng và cơ sở dữ liệu bằng các phương pháp và công cụ hiện đại. Một số trải nghiệm nổi bật:
+Việc tham dự buổi trình bày Capstone Solution giúp em có cơ hội quan sát nhiều cách tiếp cận khác nhau trong việc giải quyết các bài toán thực tế trên nền tảng AWS. Mỗi nhóm đều trình bày kiến trúc hệ thống, phương án triển khai và những quyết định kỹ thuật riêng, từ đó giúp em có thêm góc nhìn về việc xây dựng các giải pháp cloud-native.
 
-#### Học hỏi từ các diễn giả có chuyên môn cao
-- Các diễn giả đến từ AWS và các tổ chức công nghệ lớn đã chia sẻ **best practices** trong thiết kế ứng dụng hiện đại.
-- Qua các case study thực tế, tôi hiểu rõ hơn cách áp dụng **Domain-Driven Design (DDD)** và **Event-Driven Architecture** vào các project lớn.
+Buổi trình bày cũng giúp em nâng cao hiểu biết về thiết kế hệ thống, kỹ năng trình bày dự án và làm việc nhóm. Thông qua phần trao đổi và góp ý từ mentor, em học hỏi được nhiều kinh nghiệm thực tế có thể áp dụng cho các dự án điện toán đám mây trong tương lai.
 
-#### Trải nghiệm kỹ thuật thực tế
-- Tham gia các phiên trình bày về **event storming** giúp tôi hình dung cách **mô hình hóa quy trình kinh doanh** thành các domain events.
-- Học cách **phân tách microservices** và xác định **bounded contexts** để quản lý sự phức tạp của hệ thống lớn.
-- Hiểu rõ trade-offs giữa **synchronous và asynchronous communication** cũng như các pattern tích hợp như **pub/sub, point-to-point, streaming**.
-
-#### Ứng dụng công cụ hiện đại
-- Trực tiếp tìm hiểu về **Amazon Q Developer**, công cụ AI hỗ trợ SDLC từ lập kế hoạch đến maintenance.
-- Học cách **tự động hóa code transformation** và pilot serverless với **AWS Lambda**, từ đó nâng cao năng suất phát triển.
-
-#### Kết nối và trao đổi
-- Workshop tạo cơ hội trao đổi trực tiếp với các chuyên gia, đồng nghiệp và team business, giúp **nâng cao ngôn ngữ chung (ubiquitous language)** giữa business và tech.
-- Qua các ví dụ thực tế, tôi nhận ra tầm quan trọng của **business-first approach**, luôn bắt đầu từ nhu cầu kinh doanh thay vì chỉ tập trung vào công nghệ.
-
-#### Bài học rút ra
-- Việc áp dụng DDD và event-driven patterns giúp giảm **coupling**, tăng **scalability** và **resilience** cho hệ thống.
-- Chiến lược hiện đại hóa cần **phased approach** và đo lường **ROI**, không nên vội vàng chuyển đổi toàn bộ hệ thống.
-- Các công cụ AI như Amazon Q Developer có thể **boost productivity** nếu được tích hợp vào workflow phát triển hiện tại.
-
-#### Một số hình ảnh khi tham gia sự kiện
-* Thêm các hình ảnh của các bạn tại đây
-> Tổng thể, sự kiện không chỉ cung cấp kiến thức kỹ thuật mà còn giúp tôi thay đổi cách tư duy về thiết kế ứng dụng, hiện đại hóa hệ thống và phối hợp hiệu quả hơn giữa các team.
+> Do tập trung theo dõi các phần trình bày và trao đổi trong suốt sự kiện nên em không chụp lại hình ảnh của buổi Capstone Presentation. Tuy nhiên, những kiến thức và các góp ý từ mentor cùng các nhóm trình bày là những giá trị thiết thực mà em thu nhận được sau sự kiện.

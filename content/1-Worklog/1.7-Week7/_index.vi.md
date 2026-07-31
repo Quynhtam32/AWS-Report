@@ -1,59 +1,38 @@
 ---
 title: "Worklog Tuần 7"
-date: 2024-01-01
-weight: 1
+date: 2026-07-13
+weight: 7
 chapter: false
 pre: " <b> 1.7. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
-
 
 ### Mục tiêu tuần 7:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Kiểm tra khả năng truy vết dữ liệu (data lineage) và đảm bảo tính nhất quán của dữ liệu trong Data Pipeline.
+* Tích hợp phần Storage/Data với các thành phần Machine Learning và Backend.
+* Kiểm thử toàn bộ quy trình từ lưu trữ dữ liệu đến dịch vụ dự báo.
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Công việc đã hoàn thành trong tuần
 
+| Ngày | Công việc | Ngày bắt đầu | Ngày hoàn thành | Tài liệu tham khảo |
+| --- | --- | --- | --- | --- |
+| 1 | Rà soát toàn bộ luồng dữ liệu từ vùng **raw** đến vùng **processed** trên Amazon S3 và tài liệu hóa quy trình chuyển đổi dữ liệu của hệ thống. | 13/07/2026 | 13/07/2026 | Tài liệu thiết kế hệ thống |
+| 2 | Kiểm tra **data lineage** bằng cách truy vết dữ liệu đã xử lý về nguồn dữ liệu ban đầu và xác nhận tính nhất quán của dữ liệu giữa các giai đoạn trong pipeline. | 14/07/2026 | 14/07/2026 | Tài liệu dự án |
+| 3 | Phối hợp với nhóm Machine Learning để bảo đảm bộ dữ liệu đã xử lý đáp ứng yêu cầu cho quá trình huấn luyện, đánh giá và tái huấn luyện mô hình. | 15/07/2026 | 15/07/2026 | Biên bản họp nhóm |
+| 4 | Rà soát quá trình tích hợp giữa Amazon S3 và Amazon SageMaker Endpoint, đồng thời kiểm tra luồng dữ liệu giữa dịch vụ lưu trữ, suy luận mô hình và hệ thống backend. | 16/07/2026 | 16/07/2026 | Tài liệu Amazon SageMaker |
+| 5 | Thực hiện kiểm thử end-to-end cho toàn bộ quy trình từ Amazon S3 → SageMaker Endpoint → Backend API, xác định các vấn đề trong pipeline và xác nhận dữ liệu được xử lý chính xác. | 17/07/2026 | 17/07/2026 | Báo cáo kiểm thử hệ thống |
 
-### Kết quả đạt được tuần 7:
+### Kiến thức và kinh nghiệm đạt được:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Hiểu được vai trò của data lineage trong việc duy trì Data Pipeline đáng tin cậy.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Biết cách kiểm tra và giám sát luồng dữ liệu giữa các dịch vụ AWS.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+* Có thêm kinh nghiệm tích hợp hệ thống lưu trữ dữ liệu với các dịch vụ Machine Learning trên cloud.
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Hiểu rõ hơn quy trình hoàn chỉnh của một hệ thống dự báo:
+  * Thu thập dữ liệu.
+  * Lưu trữ dữ liệu.
+  * Xử lý dữ liệu.
+  * Dự đoán bằng Machine Learning.
+  * Tích hợp với ứng dụng.
