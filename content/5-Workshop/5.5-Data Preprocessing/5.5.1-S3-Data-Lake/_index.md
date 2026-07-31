@@ -17,12 +17,12 @@ Amazon S3 will serve as the central **Data Lake**, storing both **raw** and **pr
 
    > **Note:** Amazon S3 bucket names must be globally unique. To avoid naming conflicts, add your name or a random suffix to the bucket name.
 
-   ![Bucket name configuration](/images/5-Workshop/5.3-data/5.3.1.1.png)
+   ![Bucket name configuration](/AWS-Report/images/5-Workshop/5.3-data/5.3.1.1.png)
 
 3. Under **Block Public Access settings for this bucket**:
    * Make sure **Block all public access** is enabled. This is an important security setting that protects your project's internal data from unauthorized public access.
 
-   ![Block public access](/images/5-Workshop/5.3-data/5.3.1.2.png)
+   ![Block public access](/AWS-Report/images/5-Workshop/5.3-data/5.3.1.2.png)
 
 4. Scroll down to **Tags (optional)**. Resource tags help organize AWS resources and simplify cost management. Choose **Add new tag** and create the following tags:
 
@@ -31,11 +31,11 @@ Amazon S3 will serve as the central **Data Lake**, storing both **raw** and **pr
    * **Key:** `Owner` | **Value:** `quynh-tam`
    * **Key:** `Module` | **Value:** `data`
 
-   ![AWS resource tags](/images/5-Workshop/5.3-data/5.3.1.3.png)
+   ![AWS resource tags](/AWS-Report/images/5-Workshop/5.3-data/5.3.1.3.png)
 
 5. Scroll to the bottom of the page and choose **Create bucket**.
 
-   ![Created S3 bucket](/images/5-Workshop/5.3-data/5.3.1.4.png)
+   ![Created S3 bucket](/AWS-Report/images/5-Workshop/5.3-data/5.3.1.4.png)
 
 ---
 
@@ -52,6 +52,6 @@ After the bucket has been created, open it and create the following root folders
 **Expected Result:**  
 Your Amazon S3 bucket should contain the following root folder structure:
 
-![S3 folder structure](/images/5-Workshop/5.3-data/5.3.1.5.png)
+![S3 folder structure](/AWS-Reports/5-Workshop/5.3-data/5.3.1.5.png)
 
 > **Note:** Data stored in the `raw/` folder will be automatically partitioned by time when Amazon Kinesis Data Firehose is configured in the next section. Therefore, you do not need to manually create date-based subfolders.

@@ -104,7 +104,7 @@ The script will:
 
 The terminal should display a data quality summary similar to the following:
 
-![Run data_processing.py on WSL](/images/5-Workshop/5.3-data/5.3.4.1.png)
+![Run data_processing.py on WSL](/AWS-Report/images/5-Workshop/5.3-data/5.3.4.1.png)
 
 ---
 
@@ -129,7 +129,7 @@ sample_processed_dataset.parquet
 
 After uploading, the processed dataset will appear in the **ml-ready** folder.
 
-![Processed dataset uploaded to Amazon S3](/images/5-Workshop/5.3-data/5.3.4.2.png)
+![Processed dataset uploaded to Amazon S3](/AWS-Report/images/5-Workshop/5.3-data/5.3.4.2.png)
 
 ---
 

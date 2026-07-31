@@ -87,7 +87,7 @@ The proposed solution consists of two main layers: the edge layer, which collect
 ##### Edge Architecture
 
 <p align="center">
-    <img src="/images/2-Proposal/edge_architecture.jpeg" width="900">
+    <img src="/AWS-Report/images/2-Proposal/edge_architecture.jpeg" width="900">
 </p>
 
 <p align="center">
@@ -101,7 +101,7 @@ At the edge, IoT devices collect environmental measurements and publish telemetr
 ##### AWS Cloud Platform Architecture
 
 <p align="center">
-    <img src="/images/2-Proposal/platform_architecture.jpeg" width="1000">
+    <img src="/AWS-Report/images/2-Proposal/platform_architecture.jpeg" width="1000">
 </p>
 
 <p align="center">

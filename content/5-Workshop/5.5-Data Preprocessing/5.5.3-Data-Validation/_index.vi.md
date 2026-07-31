@@ -151,7 +151,7 @@ raw/year=2026/month=07/day=26/hour=14/
 
 Tại đây bạn sẽ thấy các file dữ liệu được Firehose tự động tạo.
 
-![Các file dữ liệu trong Amazon S3](/images/5-Workshop/5.3-data/5.3.3.1.png)
+![Các file dữ liệu trong Amazon S3](/AWS-Report/images/5-Workshop/5.3-data/5.3.3.1.png)
 
 Chọn một file bất kỳ và nhấn **Download** để tải về máy tính.
 
@@ -181,7 +181,7 @@ python raw_validation.py
 
 Nếu chương trình chạy thành công, Terminal sẽ hiển thị báo cáo kiểm định dữ liệu tương tự như hình dưới đây.
 
-![Kết quả chạy chương trình kiểm định dữ liệu](/images/5-Workshop/5.3-data/5.3.3.2.png)
+![Kết quả chạy chương trình kiểm định dữ liệu](/AWS-Report/images/5-Workshop/5.3-data/5.3.3.2.png)
 
 Báo cáo sẽ bao gồm:
 
