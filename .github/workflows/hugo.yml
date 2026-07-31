@@ -16,7 +16,7 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
         with:
-          submodules: true # <- Bổ sung dòng này để GitHub Actions tự động tải theme về khi build
+          submodules: false
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
