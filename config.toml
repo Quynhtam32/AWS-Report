@@ -1,4 +1,4 @@
-baseURL = "https://quynhtam32.github.io/AWS-Report/"
+baseURL = "/"
 relativeURLs = false
 canonifyURLs = false
 defaultContentLanguage = "en"
