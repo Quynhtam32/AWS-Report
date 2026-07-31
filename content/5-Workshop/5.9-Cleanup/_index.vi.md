@@ -1,5 +1,5 @@
 ---
-title : "Machine Learning: huan luyen va tao forecast"
+title : "Machine Learning: huấn luyện và tạo forecast"
 date : 2026-07-31
 weight : 9
 chapter : false
