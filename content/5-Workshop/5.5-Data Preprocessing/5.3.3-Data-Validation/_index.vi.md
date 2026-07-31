@@ -3,7 +3,7 @@ title: "Kiểm định dữ liệu thô (Raw Validation)"
 date: 2026-07-31
 weight: 3
 chapter: false
-pre: " <b> 5.5.3. </b> "
+pre: " <b> 5.3.3. </b> "
 ---
 
 Dữ liệu được gửi từ AWS IoT Core thông qua Amazon Kinesis Data Firehose sẽ được gom thành các lô (batch) trước khi lưu vào Amazon S3 nhằm tối ưu hiệu năng và chi phí lưu trữ. Tuy nhiên, dữ liệu đầu ra của Firehose thường gặp hiện tượng **Concatenated JSON**, trong đó nhiều đối tượng JSON được nối liền nhau (`}{`) mà không có ký tự xuống dòng.
@@ -151,7 +151,7 @@ raw/year=2026/month=07/day=26/hour=14/
 
 Tại đây bạn sẽ thấy các file dữ liệu được Firehose tự động tạo.
 
-![Các file dữ liệu trong Amazon S3](/AWS-Report/images/5-Workshop/5.3-data/5.3.3.1.png)
+![Các file dữ liệu trong Amazon S3](/images/5-Workshop/5.3-data/5.3.3.1.png)
 
 Chọn một file bất kỳ và nhấn **Download** để tải về máy tính.
 
@@ -181,7 +181,7 @@ python raw_validation.py
 
 Nếu chương trình chạy thành công, Terminal sẽ hiển thị báo cáo kiểm định dữ liệu tương tự như hình dưới đây.
 
-![Kết quả chạy chương trình kiểm định dữ liệu](/AWS-Report/images/5-Workshop/5.3-data/5.3.3.2.png)
+![Kết quả chạy chương trình kiểm định dữ liệu](/images/5-Workshop/5.3-data/5.3.3.2.png)
 
 Báo cáo sẽ bao gồm:
 

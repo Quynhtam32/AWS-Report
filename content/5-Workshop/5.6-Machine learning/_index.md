@@ -406,7 +406,7 @@ Mean: [9.3060703278, 9.3919620514, 9.3067531586, 9.3091573715, 9.2927675247]...
 
 #### Evaluation Plot
 
-![DeepAR SageMaker Evaluation](/AWS-Report/images/5-Workshop/5.6-Machine-learning/deepar_sagemaker_evaluation.png)
+![DeepAR SageMaker Evaluation](/images/5-Workshop/5.6-Machine-learning/deepar_sagemaker_evaluation.png)
 
 Three-panel evaluation:
 

@@ -87,7 +87,7 @@ The proposed solution consists of two main layers: the edge layer, which collect
 ##### Edge Architecture
 
 <p align="center">
-    <img src="/AWS-Report/images/2-Proposal/edge_architecture.jpeg" width="900">
+    <img src="/images/2-Proposal/edge_architecture.jpeg" width="900">
 </p>
 
 <p align="center">
@@ -101,12 +101,13 @@ At the edge, IoT devices collect environmental measurements and publish telemetr
 ##### AWS Cloud Platform Architecture
 
 <p align="center">
-    <img src="/AWS-Report/images/2-Proposal/platform_architecture.jpeg" width="1000">
+    <img src="/images/2-Proposal/platform_architecture.jpeg" width="1000">
 </p>
 
 <p align="center">
 <i>Figure 2.2. AWS Cloud Platform Architecture.</i>
 </p>
+
 The cloud platform is built on AWS services. AWS IoT Core receives telemetry messages from edge devices, while Amazon S3 stores raw and processed datasets. AWS Glue performs ETL processing, AWS Lambda implements backend functions, API Gateway exposes REST APIs, Amazon Cognito provides user authentication, and AWS Amplify hosts the web application. These services together provide a scalable platform for data ingestion, processing, storage, forecasting, and user access.
 
 ---

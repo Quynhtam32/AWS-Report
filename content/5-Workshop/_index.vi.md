@@ -53,7 +53,7 @@ Lọc tài nguyên theo Project=local-aqi-forecasting.
 /images/6-Cleanup/resources-by-tag.png
 -->
 
-![Danh sách tài nguyên của dự án](/AWS-Report/images/6-Cleanup/resources-by-tag.png)
+![Danh sách tài nguyên của dự án](/images/6-Cleanup/resources-by-tag.png)
 
 ---
 
@@ -118,7 +118,7 @@ Hiển thị endpoint của dự án trước khi xóa.
 /images/6-Cleanup/sagemaker-endpoint.png
 -->
 
-![SageMaker Endpoint](/AWS-Report/images/6-Cleanup/sagemaker-endpoint.png)
+![SageMaker Endpoint](/images/6-Cleanup/sagemaker-endpoint.png)
 
 Có thể xóa bằng AWS CLI:
 
@@ -213,7 +213,7 @@ Danh sách SageMaker Notebook Instance hoặc Studio Application.
 /images/6-Cleanup/sagemaker-notebook.png
 -->
 
-![SageMaker Notebook](/AWS-Report/images/6-Cleanup/sagemaker-notebook.png)
+![SageMaker Notebook](/images/6-Cleanup/sagemaker-notebook.png)
 
 Đối với SageMaker Studio, cần kiểm tra và xóa các ứng dụng đang chạy như:
 
@@ -306,7 +306,7 @@ Hiển thị instance backend của dự án và trạng thái trước khi dừ
 /images/6-Cleanup/ec2-instance.png
 -->
 
-![EC2 Instance](/AWS-Report/images/6-Cleanup/ec2-instance.png)
+![EC2 Instance](/images/6-Cleanup/ec2-instance.png)
 
 Có thể dừng instance bằng AWS CLI:
 
@@ -381,7 +381,7 @@ Hiển thị rule IoT sang Firehose.
 /images/6-Cleanup/iot-rule.png
 -->
 
-![IoT Rule](/AWS-Report/images/6-Cleanup/iot-rule.png)
+![IoT Rule](/images/6-Cleanup/iot-rule.png)
 
 Có thể xóa bằng AWS CLI:
 
@@ -488,7 +488,7 @@ Hiển thị delivery stream trước khi xóa.
 /images/6-Cleanup/firehose-stream.png
 -->
 
-![Firehose Delivery Stream](/AWS-Report/images/6-Cleanup/firehose-stream.png)
+![Firehose Delivery Stream](/images/6-Cleanup/firehose-stream.png)
 
 Có thể xóa bằng AWS CLI:
 
@@ -532,7 +532,7 @@ SNS Topic và subscription trước khi xóa.
 /images/6-Cleanup/sns-topic-subscription.png
 -->
 
-![SNS Topic và Subscription](/AWS-Report/images/6-Cleanup/sns-topic-subscription.png)
+![SNS Topic và Subscription](/images/6-Cleanup/sns-topic-subscription.png)
 
 Có thể xóa topic bằng AWS CLI:
 
@@ -586,7 +586,7 @@ Hiển thị dữ liệu trước khi xóa hoặc bucket sau khi đã empty.
 /images/6-Cleanup/s3-empty-bucket.png
 -->
 
-![Dọn dữ liệu trong S3 Bucket](/AWS-Report/images/6-Cleanup/s3-empty-bucket.png)
+![Dọn dữ liệu trong S3 Bucket](/images/6-Cleanup/s3-empty-bucket.png)
 
 ---
 
@@ -712,7 +712,7 @@ IAM > Roles, lọc theo local-aqi-dev.
 /images/6-Cleanup/iam-project-roles.png
 -->
 
-![IAM Role của dự án](/AWS-Report/images/6-Cleanup/iam-project-roles.png)
+![IAM Role của dự án](/images/6-Cleanup/iam-project-roles.png)
 
 Không xóa role dùng chung với dự án khác.
 
@@ -827,7 +827,7 @@ Hiển thị chi phí các dịch vụ sau khi cleanup.
 /images/6-Cleanup/billing-check.png
 -->
 
-![Kiểm tra chi phí AWS](/AWS-Report/images/6-Cleanup/billing-check.png)
+![Kiểm tra chi phí AWS](/images/6-Cleanup/billing-check.png)
 
 Lưu ý rằng một số khoản phí có thể xuất hiện trễ so với thời điểm sử dụng. Do đó, cần tiếp tục kiểm tra Billing trong những ngày tiếp theo.
 

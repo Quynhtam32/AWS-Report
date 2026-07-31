@@ -53,7 +53,7 @@ MQTT Simulator
     -> Amazon SNS Email Alert
 ```
 
-![Kiến trúc tổng thể của dự án](/AWS-Report/images/5-Workshop/5.1-Workshop-overview/5.3-devops-local-aqi-final-architecture.png)
+![Kiến trúc tổng thể của dự án](/images/5-Workshop/5.1-Workshop-overview/5.3-devops-local-aqi-final-architecture.png)
 
 #### Cách đọc phần workshop
 

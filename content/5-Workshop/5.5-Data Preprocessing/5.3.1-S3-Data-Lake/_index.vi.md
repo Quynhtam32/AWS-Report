@@ -3,7 +3,7 @@ title: "Tạo S3 Data Lake"
 date: 2026-07-31
 weight: 1
 chapter: false
-pre: " <b> 5.5.1. </b> "
+pre: " <b> 5.3.1. </b> "
 ---
 
 Amazon S3 sẽ đóng vai trò là Data Lake (hồ dữ liệu) trung tâm, nơi lưu trữ toàn bộ dữ liệu ở cả dạng thô (Raw) và dạng đã qua chế biến (Processed).
@@ -14,12 +14,12 @@ Amazon S3 sẽ đóng vai trò là Data Lake (hồ dữ liệu) trung tâm, nơi
 2. Tại phần **General configuration**:
    * **Bucket name:** Đặt tên cho bucket. Ví dụ: `local-aqi-dev-s3-raw` (Lưu ý: Tên bucket trên S3 phải là duy nhất trên toàn cầu, vì vậy hãy thêm hậu tố tên của bạn hoặc một mã ngẫu nhiên).
 
-   ![Cấu hình tên Bucket](/AWS-Report/images/5-Workshop/5.3-data/5.3.1.1.png)
+   ![Cấu hình tên Bucket](/images/5-Workshop/5.3-data/5.3.1.1.png)
 
 3. Tại phần **Block Public Access settings for this bucket**:
    * Đảm bảo mục **Block all public access** đã được tích chọn. Đây là bước cực kỳ quan trọng để bảo vệ dữ liệu nội bộ của dự án khỏi các truy cập trái phép từ internet.
 
-   ![Chặn quyền truy cập công khai](/AWS-Report/images/5-Workshop/5.3-data/5.3.1.2.png)
+   ![Chặn quyền truy cập công khai](/images/5-Workshop/5.3-data/5.3.1.2.png)
 
 4. Cuộn xuống phần **Tags - optional** (Gắn thẻ tài nguyên). Việc gắn thẻ giúp team dễ dàng quản lý chi phí và phân loại tài nguyên dự án sau này. Nhấn **Add new tag** và thêm các thẻ giống như sau:
    * **Key:** `Project` | **Value:** `local-aqi-forecasting`
@@ -27,10 +27,10 @@ Amazon S3 sẽ đóng vai trò là Data Lake (hồ dữ liệu) trung tâm, nơi
    * **Key:** `Owner` | **Value:** `quynh-tam`
    * **Key:** `Module` | **Value:** `data`
 
-   ![Gắn thẻ tài nguyên AWS](/AWS-Report/images/5-Workshop/5.3-data/5.3.1.3.png)
+   ![Gắn thẻ tài nguyên AWS](/images/5-Workshop/5.3-data/5.3.1.3.png)
 
 5. Cuộn xuống dưới cùng và nhấn **Create bucket** sẽ tạo ra bucket.
-![buket đã tạo](/AWS-Report/images/5-Workshop/5.3-data/5.3.1.4.png)
+![buket đã tạo](/images/5-Workshop/5.3-data/5.3.1.4.png)
 
 #### Quy hoạch thư mục (Prefixes)
 
@@ -43,6 +43,6 @@ Sau khi tạo xong, hãy nhấp vào tên Bucket vừa tạo trong danh sách đ
 
 **Kết quả sau cùng:** Giao diện bên trong bucket S3 của bạn sẽ có cấu trúc các thư mục gốc giống như hình bên dưới:
 
-![Kết quả cấu trúc thư mục S3](/AWS-Report/images/5-Workshop/5.3-data/5.3.1.5.png)
+![Kết quả cấu trúc thư mục S3](/images/5-Workshop/5.3-data/5.3.1.5.png)
 
 *Lưu ý: Dữ liệu bên trong thư mục `raw/` sẽ tự động được phân mảnh (partition) theo thời gian ở bước thiết lập Firehose tiếp theo, do đó bạn không cần tạo thêm các thư mục con theo ngày tháng thủ công.*
