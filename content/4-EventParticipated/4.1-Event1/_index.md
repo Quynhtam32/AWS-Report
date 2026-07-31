@@ -105,9 +105,8 @@ Attending the **"From First Cloud AI Journey to AWS Partner"** FCAJ Meetup gave 
 - Seeing the range of paths that came out of the FCAJ program — Solutions Architect, DevOps Engineer, Platform Engineer, Software Engineer — was a good reminder that there isn't one "correct" path to follow.
 
 #### Some event photos
+![Attendees watching a slide on corporate culture during the FCAJ Meetup](/AWS-Report/images/4-Events%20Participated/event1.1.jpg)
 
-![Attendees watching a slide on corporate culture during the FCAJ Meetup](/images/4-Events%20Participated/event1.1.jpg)
-
-![Slide on the real work of a Data Analytics Engineer at Kamereo and Colgate-Palmolive](/images/4-Events%20Participated/event1.2.jpg)
+![Slide on the real work of a Data Analytics Engineer at Kamereo and Colgate-Palmolive](/AWS-Report/images/4-Events%20Participated/event1.2.jpg)
 
 > Overall, this event helped me move from an abstract idea of "working in cloud/data" to a much more concrete understanding of what different roles actually require, and gave me practical guidance on what to focus on next in my own learning.

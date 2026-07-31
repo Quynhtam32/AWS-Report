@@ -3,7 +3,7 @@ title: "Data Processing and Standardization"
 date: 2026-07-31
 weight: 4
 chapter: false
-pre: " <b> 5.3.4. </b> "
+pre: " <b> 5.5.4. </b> "
 ---
 
 After validating the raw dataset in the previous step, the next stage is to clean the data, remove duplicate records, normalize timestamps, perform **1-hour (1H) resampling**, and interpolate missing values. The processed dataset will then be exported in **Apache Parquet** format, making it ready for Machine Learning model training.
@@ -104,7 +104,7 @@ The script will:
 
 The terminal should display a data quality summary similar to the following:
 
-![Run data_processing.py on WSL](/images/5-Workshop/5.3-data/5.3.4.1.png)
+![Run data_processing.py on WSL](/AWS-Report/images/5-Workshop/5.3-data/5.3.4.1.png)
 
 ---
 
@@ -129,7 +129,7 @@ sample_processed_dataset.parquet
 
 After uploading, the processed dataset will appear in the **ml-ready** folder.
 
-![Processed dataset uploaded to Amazon S3](/images/5-Workshop/5.3-data/5.3.4.2.png)
+![Processed dataset uploaded to Amazon S3](/AWS-Report/images/5-Workshop/5.3-data/5.3.4.2.png)
 
 ---
 

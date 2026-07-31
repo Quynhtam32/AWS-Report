@@ -3,7 +3,7 @@ title: "Tiền xử lý và chuẩn hóa dữ liệu"
 date: 2026-07-31
 weight: 4
 chapter: false
-pre: " <b> 5.3.4. </b> "
+pre: " <b> 5.5.4. </b> "
 ---
 
 Sau khi kiểm định dữ liệu thô ở bước trước, chúng ta tiến hành làm sạch dữ liệu, loại bỏ các bản ghi trùng lặp, chuẩn hóa mốc thời gian, thực hiện **Resample theo chu kỳ 1 giờ (1H)** và nội suy (Interpolation) các giá trị còn thiếu. Bộ dữ liệu sau xử lý sẽ được xuất ra định dạng **Apache Parquet**, sẵn sàng phục vụ cho quá trình huấn luyện mô hình Machine Learning.
@@ -104,7 +104,7 @@ Chương trình sẽ tự động thực hiện các công việc sau:
 
 Sau khi thực thi thành công, Terminal sẽ hiển thị báo cáo tổng quan về chất lượng dữ liệu như hình dưới đây.
 
-![Kết quả chạy data_processing.py trên WSL](/images/5-Workshop/5.3-data/5.3.4.1.png)
+![Kết quả chạy data_processing.py trên WSL](/AWS-Report/images/5-Workshop/5.3-data/5.3.4.1.png)
 
 ---
 
@@ -129,7 +129,7 @@ sample_processed_dataset.parquet
 
 Sau khi hoàn tất, tệp dữ liệu đã xử lý sẽ xuất hiện trong thư mục **ml-ready** của S3.
 
-![Tệp Parquet đã được tải lên Amazon S3](/images/5-Workshop/5.3-data/5.3.4.2.png)
+![Tệp Parquet đã được tải lên Amazon S3](/AWS-Report/images/5-Workshop/5.3-data/5.3.4.2.png)
 
 ---
 

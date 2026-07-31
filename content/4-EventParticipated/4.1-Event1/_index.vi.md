@@ -106,8 +106,8 @@ Tham dự buổi FCAJ Meetup **"From First Cloud AI Journey to AWS Partner"** đ
 
 #### Một số hình ảnh sự kiện
 
-![Khán giả theo dõi slide về văn hóa doanh nghiệp tại FCAJ Meetup](/images/4-Events%20Participated/event1.1.jpg)
+![Khán giả theo dõi slide về văn hóa doanh nghiệp tại FCAJ Meetup](/AWS-Report/images/4-Events%20Participated/event1.1.jpg)
 
-![Slide về công việc thực tế của Data Analytics Engineer tại Kamereo và Colgate-Palmolive](/images/4-Events%20Participated/event1.2.jpg)
+![Slide về công việc thực tế của Data Analytics Engineer tại Kamereo và Colgate-Palmolive](/AWS-Report/images/4-Events%20Participated/event1.2.jpg)
 
 > Nhìn chung, sự kiện này đã giúp em chuyển từ một ý niệm trừu tượng về việc "làm trong lĩnh vực cloud/data" sang một hiểu biết cụ thể hơn nhiều về những gì các vai trò khác nhau thực sự đòi hỏi, đồng thời đưa ra định hướng thiết thực cho những gì cần tập trung học tiếp theo.

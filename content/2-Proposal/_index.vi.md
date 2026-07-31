@@ -87,7 +87,7 @@ Giải pháp được đề xuất bao gồm hai lớp chính: lớp biên (Edge
 ##### Kiến trúc Edge
 
 <p align="center">
-    <img src="/images/2-Proposal/edge_architecture.jpeg" width="900">
+    <img src="/AWS-Report/images/2-Proposal/edge_architecture.jpeg" width="900">
 </p>
 
 <p align="center">
@@ -101,7 +101,7 @@ Tại lớp Edge, các thiết bị IoT thu thập dữ liệu môi trường v�
 ##### Kiến trúc nền tảng AWS Cloud
 
 <p align="center">
-    <img src="/images/2-Proposal/platform_architecture.jpeg" width="1000">
+    <img src="/AWS-Report/images/2-Proposal/platform_architecture.jpeg" width="1000">
 </p>
 
 <p align="center">
