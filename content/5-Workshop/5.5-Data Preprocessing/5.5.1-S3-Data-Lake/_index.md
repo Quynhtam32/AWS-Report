@@ -3,7 +3,7 @@ title: "Create an Amazon S3 Data Lake"
 date: 2026-07-31
 weight: 1
 chapter: false
-pre: " <b> 5.3.1. </b> "
+pre: " <b> 5.5.1. </b> "
 ---
 
 Amazon S3 will serve as the central **Data Lake**, storing both **raw** and **processed** data throughout the project.

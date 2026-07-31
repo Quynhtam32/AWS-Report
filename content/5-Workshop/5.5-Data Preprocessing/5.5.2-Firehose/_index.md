@@ -3,7 +3,7 @@ title: "Configure Amazon Kinesis Data Firehose"
 date: 2026-07-31
 weight: 2
 chapter: false
-pre: " <b> 5.3.2. </b> "
+pre: " <b> 5.5.2. </b> "
 ---
 
 Amazon Kinesis Data Firehose enables you to automatically collect streaming data from IoT devices and deliver it to your Data Lake in Amazon S3 as batched files.

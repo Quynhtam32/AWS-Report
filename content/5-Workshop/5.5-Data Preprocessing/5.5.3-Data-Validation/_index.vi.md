@@ -3,7 +3,7 @@ title: "Kiểm định dữ liệu thô (Raw Validation)"
 date: 2026-07-31
 weight: 3
 chapter: false
-pre: " <b> 5.3.3. </b> "
+pre: " <b> 5.5.3. </b> "
 ---
 
 Dữ liệu được gửi từ AWS IoT Core thông qua Amazon Kinesis Data Firehose sẽ được gom thành các lô (batch) trước khi lưu vào Amazon S3 nhằm tối ưu hiệu năng và chi phí lưu trữ. Tuy nhiên, dữ liệu đầu ra của Firehose thường gặp hiện tượng **Concatenated JSON**, trong đó nhiều đối tượng JSON được nối liền nhau (`}{`) mà không có ký tự xuống dòng.

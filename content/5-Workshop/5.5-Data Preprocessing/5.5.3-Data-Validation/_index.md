@@ -3,7 +3,7 @@ title: "Raw Data Validation"
 date: 2026-07-31
 weight: 3
 chapter: false
-pre: " <b> 5.3.3. </b> "
+pre: " <b> 5.5.3. </b> "
 ---
 
 Data published from AWS IoT Core through Amazon Kinesis Data Firehose is automatically buffered into batches before being delivered to Amazon S3. This improves throughput and reduces storage costs. However, Firehose output often contains **Concatenated JSON**, where multiple JSON objects are written together (`}{`) without line breaks.

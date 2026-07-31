@@ -3,7 +3,7 @@ title: "Tạo S3 Data Lake"
 date: 2026-07-31
 weight: 1
 chapter: false
-pre: " <b> 5.3.1. </b> "
+pre: " <b> 5.5.1. </b> "
 ---
 
 Amazon S3 sẽ đóng vai trò là Data Lake (hồ dữ liệu) trung tâm, nơi lưu trữ toàn bộ dữ liệu ở cả dạng thô (Raw) và dạng đã qua chế biến (Processed).

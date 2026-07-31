@@ -3,7 +3,7 @@ title: "Data Processing and Standardization"
 date: 2026-07-31
 weight: 4
 chapter: false
-pre: " <b> 5.3.4. </b> "
+pre: " <b> 5.5.4. </b> "
 ---
 
 After validating the raw dataset in the previous step, the next stage is to clean the data, remove duplicate records, normalize timestamps, perform **1-hour (1H) resampling**, and interpolate missing values. The processed dataset will then be exported in **Apache Parquet** format, making it ready for Machine Learning model training.

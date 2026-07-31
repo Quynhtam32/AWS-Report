@@ -1,9 +1,9 @@
 ---
 title : "Machine Learning: training and forecast generation"
 date : 2026-07-31
-weight : 6
+weight : 9
 chapter : false
-pre : " <b> 5.6. </b> "
+pre : " <b> 5.9. </b> "
 ---
 
 #### Role objective

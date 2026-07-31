@@ -3,7 +3,7 @@ title: "Cấu hình Kinesis Data Firehose"
 date: 2026-07-31
 weight: 2
 chapter: false
-pre: " <b> 5.3.2. </b> "
+pre: " <b> 5.5.2. </b> "
 ---
 
 AWS Kinesis Data Firehose giúp luân chuyển dữ liệu streaming từ thiết bị IoT và ghi thành các file (batch) xuống Data Lake một cách hoàn toàn tự động.
