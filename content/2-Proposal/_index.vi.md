@@ -54,7 +54,13 @@ Telemetry Simulator
 -> Amazon SNS Email
 ```
 
-![Kien truc tong the Local AQI Forecasting]({{< relURL "images/2-Proposal/5.3-devops-local-aqi-final-architecture.png" >}})
+<p align="center">
+    <img src="/AWS-Report/images/2-Proposal/5.3-devops-local-aqi-final-architecture.png" width="1000">
+</p>
+
+<p align="center">
+<i>Hình 2. Kiến trúc tổng thể của hệ thống Local AQI Forecasting.</i>
+</p>
 
 Các chức năng chính của hệ thống gồm:
 
