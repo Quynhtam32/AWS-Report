@@ -54,7 +54,13 @@ Telemetry Simulator
 -> Amazon SNS Email
 ```
 
-![Final architecture of the Local AQI Forecasting system]({{< relURL "/AWS-Report/images/2-Proposal/5.3-devops-local-aqi-final-architecture.png" >}})
+<p align="center">
+    <img src="/AWS-Report/images/2-Proposal/5.3-devops-local-aqi-final-architecture.png" width="1000">
+</p>
+
+<p align="center">
+<i>Figure 2. Final architecture of the Local AQI Forecasting system.</i>
+</p>
 
 The main system capabilities include:
 
