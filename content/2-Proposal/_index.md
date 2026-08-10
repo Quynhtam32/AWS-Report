@@ -5,6 +5,12 @@ weight: 2
 chapter: false
 pre: " <b> 2. </b> "
 ---
+{{% notice warning %}}
+⚠️ **Note:** The information below presents the planned scope and implementation approach of the project. The architecture, cost estimates, and technical details may continue to be refined during implementation and testing.
+{{% /notice %}}
+
+This section summarizes the team project planned for the internship period, including the problem context, system architecture, implementation roadmap, budget considerations, and major risks.
+
 # Local AQI Forecasting & Alert System
 ## A local air quality forecasting and alerting system on AWS
 
@@ -13,6 +19,8 @@ pre: " <b> 2. </b> "
 The Local AQI Forecasting & Alert System is designed to collect, store, process, and forecast air quality data for individual monitoring stations. In the MVP phase, the project focuses on PM2.5 forecasting, while remaining extensible to PM10 and other environmental indicators in future versions.
 
 In the first version, the team uses historical data from OpenAQ to build a simulator for multiple monitoring stations. Telemetry data is sent through MQTT to AWS IoT Core, routed through Amazon Data Firehose, and stored on Amazon S3 using a data lake approach.
+
+Reference implementation and simulator repository: [NghinnDahlias/AWS-FCJ-local_aqi_forecast](https://github.com/NghinnDahlias/AWS-FCJ-local_aqi_forecast)
 
 The data is then cleaned and standardized with Amazon SageMaker Processing. A time-series forecasting model is trained and deployed on Amazon SageMaker. A FastAPI backend running on Amazon EC2 provides forecast APIs and triggers Amazon SNS to send email alerts whenever forecasted PM2.5 values exceed the configured safety threshold.
 
@@ -45,6 +53,8 @@ Telemetry Simulator
 -> FastAPI on EC2
 -> Amazon SNS Email
 ```
+
+![Final architecture of the Local AQI Forecasting system]({{< relURL "images/2-Proposal/5.3-devops-local-aqi-final-architecture.png" >}})
 
 The main system capabilities include:
 
@@ -79,38 +89,6 @@ Schools, healthcare facilities, or local administrative units could subscribe to
 ### 3. Solution Architecture
 
 The system follows an event-driven architecture combined with a structured data pipeline. Each component has a clear responsibility, making implementation, testing, and future scaling easier to manage.
-
-#### Overall System Architecture
-
-The proposed solution consists of two main layers: the edge layer, which collects and forwards sensor data, and the AWS cloud platform, which processes, stores, forecasts, and delivers air quality alerts.
-
-##### Edge Architecture
-
-<p align="center">
-    <img src="/AWS-Report/images/2-Proposal/edge_architecture.jpeg" width="900">
-</p>
-
-<p align="center">
-<i>Figure 2.1. Edge Architecture.</i>
-</p>
-
-At the edge, IoT devices collect environmental measurements and publish telemetry data through the MQTT protocol. A Raspberry Pi hosts the MQTT Broker, InfluxDB, Edge Dashboard, and local data processing components. Tailscale VPN provides secure remote access for monitoring and management.
-
----
-
-##### AWS Cloud Platform Architecture
-
-<p align="center">
-    <img src="/AWS-Report/images/2-Proposal/platform_architecture.jpeg" width="1000">
-</p>
-
-<p align="center">
-<i>Figure 2.2. AWS Cloud Platform Architecture.</i>
-</p>
-
-The cloud platform is built on AWS services. AWS IoT Core receives telemetry messages from edge devices, while Amazon S3 stores raw and processed datasets. AWS Glue performs ETL processing, AWS Lambda implements backend functions, API Gateway exposes REST APIs, Amazon Cognito provides user authentication, and AWS Amplify hosts the web application. These services together provide a scalable platform for data ingestion, processing, storage, forecasting, and user access.
-
----
 
 #### End-to-End Processing Flow
 
@@ -147,6 +125,8 @@ The cloud platform is built on AWS services. AWS IoT Core receives telemetry mes
 ##### Data Source and Simulator
 
 The main data source is the OpenAQ dataset. Historical data is preprocessed and fed into a Python simulator to mimic the behavior of monitoring stations.
+
+Reference repository for the simulator and data pipeline: [NghinnDahlias/AWS-FCJ-local_aqi_forecast](https://github.com/NghinnDahlias/AWS-FCJ-local_aqi_forecast)
 
 The MVP uses 3 simulated stations. Each message is expected to contain the following key fields:
 
@@ -594,3 +574,7 @@ After completion, the system is expected to achieve the following:
 The project demonstrates how IoT, data engineering, machine learning, and cloud application components can be combined into a complete system.
 
 Instead of only showing current air quality conditions, the system helps users act more proactively through short-term forecasting and early alerts. The architecture also creates a foundation for integrating real sensor data later, expanding monitoring coverage, and evolving into a future application that supports community health and environmental awareness.
+
+### 9. References
+
+- GitHub repository: [NghinnDahlias/AWS-FCJ-local_aqi_forecast](https://github.com/NghinnDahlias/AWS-FCJ-local_aqi_forecast)
