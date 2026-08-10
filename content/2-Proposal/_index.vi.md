@@ -5,6 +5,12 @@ weight: 2
 chapter: false
 pre: " <b> 2. </b> "
 ---
+{{% notice warning %}}
+⚠️ **Lưu ý:** Các thông tin dưới đây trình bày phạm vi và kế hoạch dự kiến của dự án. Kiến trúc, chi phí và các thông số kỹ thuật có thể tiếp tục được điều chỉnh trong quá trình triển khai và kiểm thử.
+{{% /notice %}}
+
+Phần này tóm tắt đề tài nhóm dự kiến triển khai trong thời gian thực tập, bao gồm bối cảnh bài toán, kiến trúc hệ thống, lộ trình thực hiện, ngân sách và rủi ro chính.
+
 # Local AQI Forecasting & Alert System
 ## Hệ thống dự báo và cảnh báo ô nhiễm không khí cục bộ trên AWS
 
@@ -13,6 +19,8 @@ pre: " <b> 2. </b> "
 Local AQI Forecasting & Alert System là hệ thống thu thập, lưu trữ, xử lý và dự báo chất lượng không khí theo từng trạm quan trắc. Dự án tập trung vào chỉ số PM2.5 trong giai đoạn MVP, đồng thời hướng tới khả năng mở rộng thêm PM10 và các yếu tố môi trường khác trong tương lai.
 
 Trong phiên bản đầu tiên, nhóm sử dụng dữ liệu lịch sử từ OpenAQ để xây dựng chương trình mô phỏng nhiều trạm quan trắc. Dữ liệu telemetry được gửi qua MQTT đến AWS IoT Core, đi qua Amazon Data Firehose và được lưu trữ trên Amazon S3 theo mô hình data lake.
+
+Tham chiếu mã nguồn và dữ liệu mô phỏng: [NghinnDahlias/AWS-FCJ-local_aqi_forecast](https://github.com/NghinnDahlias/AWS-FCJ-local_aqi_forecast)
 
 Dữ liệu sau đó được làm sạch và chuẩn hóa bằng Amazon SageMaker Processing. Mô hình dự báo chuỗi thời gian được huấn luyện và triển khai trên Amazon SageMaker. Một backend FastAPI chạy trên Amazon EC2 cung cấp API truy vấn kết quả dự báo và kích hoạt Amazon SNS để gửi email cảnh báo khi giá trị PM2.5 dự báo vượt ngưỡng an toàn.
 
@@ -45,6 +53,8 @@ Telemetry Simulator
 -> FastAPI on EC2
 -> Amazon SNS Email
 ```
+
+![Kien truc tong the Local AQI Forecasting]({{< relURL "images/2-Proposal/5.3-devops-local-aqi-final-architecture.png" >}})
 
 Các chức năng chính của hệ thống gồm:
 
@@ -79,40 +89,6 @@ Các trường học, cơ sở y tế hoặc đơn vị quản lý địa phươ
 ### 3. Kiến trúc giải pháp
 
 Hệ thống được thiết kế theo hướng event-driven kết hợp data pipeline. Mỗi thành phần đảm nhiệm một trách nhiệm riêng, giúp việc triển khai, kiểm thử và mở rộng rõ ràng hơn.
-
-#### Kiến trúc tổng thể của hệ thống
-
-Giải pháp được đề xuất bao gồm hai lớp chính: lớp biên (Edge Layer), chịu trách nhiệm thu thập và truyền dữ liệu cảm biến, và nền tảng đám mây AWS, đảm nhiệm việc xử lý, lưu trữ, dự báo và gửi cảnh báo chất lượng không khí.
-
-##### Kiến trúc Edge
-
-<p align="center">
-    <img src="/AWS-Report/images/2-Proposal/edge_architecture.jpeg" width="900">
-</p>
-
-<p align="center">
-<i>Hình 2.1. Kiến trúc Edge.</i>
-</p>
-
-Tại lớp Edge, các thiết bị IoT thu thập dữ liệu môi trường và gửi dữ liệu telemetry thông qua giao thức MQTT. Một thiết bị Raspberry Pi lưu trữ MQTT Broker, InfluxDB, Edge Dashboard và các thành phần xử lý dữ liệu cục bộ. Tailscale VPN được sử dụng để cung cấp kết nối từ xa an toàn, hỗ trợ việc giám sát và quản lý hệ thống.
-
----
-
-##### Kiến trúc nền tảng AWS Cloud
-
-<p align="center">
-    <img src="/AWS-Report/images/2-Proposal/platform_architecture.jpeg" width="1000">
-</p>
-
-<p align="center">
-<i>Hình 2.2. Kiến trúc nền tảng AWS Cloud.</i>
-</p>
-
-Nền tảng đám mây được xây dựng dựa trên các dịch vụ của AWS. AWS IoT Core tiếp nhận dữ liệu telemetry từ các thiết bị Edge, trong khi Amazon S3 lưu trữ dữ liệu thô (Raw) và dữ liệu đã xử lý (Processed). AWS Glue thực hiện quá trình ETL, AWS Lambda triển khai các chức năng xử lý phía máy chủ, Amazon API Gateway cung cấp các REST API, Amazon Cognito đảm nhiệm xác thực người dùng và AWS Amplify lưu trữ ứng dụng web. Các dịch vụ này phối hợp với nhau để tạo thành một nền tảng có khả năng mở rộng cho việc thu thập dữ liệu, xử lý, lưu trữ, dự báo và cung cấp thông tin đến người dùng.
-
----
-
-#### Luồng xử lý đầu cuối (End-to-End Processing Flow)
 
 #### Luồng xử lý tổng thể
 
@@ -149,6 +125,8 @@ Nền tảng đám mây được xây dựng dựa trên các dịch vụ của 
 ##### Nguồn dữ liệu và Simulator
 
 Nguồn dữ liệu chính là OpenAQ Dataset. Dữ liệu lịch sử được làm sạch và đưa vào Python Simulator để mô phỏng hoạt động của các trạm quan trắc.
+
+Repo tham chiếu cho pipeline xử lý dữ liệu và simulator: [NghinnDahlias/AWS-FCJ-local_aqi_forecast](https://github.com/NghinnDahlias/AWS-FCJ-local_aqi_forecast)
 
 Phiên bản MVP sử dụng 3 trạm mô phỏng. Mỗi message dự kiến chứa các trường chính:
 
@@ -596,3 +574,7 @@ Sau khi hoàn thành, hệ thống dự kiến đạt được:
 Dự án thể hiện khả năng kết hợp IoT, data engineering, machine learning và cloud application thành một hệ thống hoàn chỉnh.
 
 Thay vì chỉ hiển thị chất lượng không khí tại thời điểm hiện tại, hệ thống giúp người dùng chủ động hơn nhờ khả năng dự báo và cảnh báo sớm. Kiến trúc này cũng tạo nền tảng để tiếp tục tích hợp dữ liệu từ cảm biến thực, mở rộng phạm vi quan trắc và phát triển thành một ứng dụng hỗ trợ sức khỏe cộng đồng trong tương lai.
+
+### 9. Tài liệu tham khảo
+
+- GitHub repository: [NghinnDahlias/AWS-FCJ-local_aqi_forecast](https://github.com/NghinnDahlias/AWS-FCJ-local_aqi_forecast)
